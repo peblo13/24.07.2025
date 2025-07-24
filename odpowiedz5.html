@@ -1,0 +1,697 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jak znaleźć pracę na eCVjob.pl</title>
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+        /* Basic reset and body styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Page header styling */
+        #page-header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 2px solid #00ff00;
+            width: 100%;
+        }
+
+        #page-header h1 {
+            color: #00ff00;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        /* Navigation styling */
+        nav {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        nav ul li {
+            flex: 1 1 auto;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 15px 10px;
+            color: #fff;
+            text-decoration: none;
+            border-right: 1px solid #00ff00;
+            transition: background 0.3s ease, color 0.3s ease;
+            font-weight: bold;
+        }
+
+        nav ul li:last-child a {
+            border-right: none;
+        }
+
+        nav ul li a:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        /* Logo styling */
+        .logo {
+            position: fixed;
+            right: 20px;
+            top: 80px;
+            width: 150px;
+            height: 150px;
+            z-index: 9999;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 2px 8px rgba(0, 255, 0, 0.3));
+        }
+
+        /* Main content styling */
+        main {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        /* Answer section styling */
+        .answer-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .question-title {
+            color: #00ff00;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .question-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 5px #00ff00);
+        }
+
+        .answer-content {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .answer-content p {
+            margin-bottom: 20px;
+        }
+
+        /* Search methods */
+        .search-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .method-card {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 255, 0, 0.05) 100%);
+            border: 2px solid #00ff00;
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .method-title {
+            color: #00ff00;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .method-icon {
+            font-size: 2rem;
+            margin-right: 12px;
+        }
+
+        .method-info {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .method-details {
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .method-details strong {
+            color: #00ff00;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Step-by-step guide */
+        .steps-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid #ffd700;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .steps-title {
+            color: #ffd700;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .steps-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-item {
+            counter-increment: step-counter;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .step-item::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffd700;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .step-title {
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        /* Free application highlight */
+        .free-application {
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.1) 0%, rgba(0, 150, 255, 0.05) 100%);
+            border: 2px solid #0096ff;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .free-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #00ff00;
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .free-title {
+            color: #0096ff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .free-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        /* Tips section */
+        .tips-section {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.1) 0%, rgba(255, 69, 0, 0.05) 100%);
+            border: 2px solid #ff4500;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .tips-title {
+            color: #ff4500;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-card {
+            background: rgba(255, 69, 0, 0.1);
+            border: 1px solid #ff4500;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .tip-title {
+            color: #ff4500;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .tip-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Back button */
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #00cc00 0%, #00aa00 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 255, 0, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ff00;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            main {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .answer-section {
+                padding: 25px 20px;
+            }
+
+            .question-title {
+                font-size: 1.8rem;
+            }
+
+            .search-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #page-header h1 {
+                font-size: 2rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+                top: 60px;
+                right: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                width: 100%;
+                min-width: unset;
+            }
+
+            nav ul li a {
+                border-right: none;
+                border-bottom: 1px solid #00ff00;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .answer-section {
+                padding: 20px 15px;
+            }
+
+            .question-title {
+                font-size: 1.5rem;
+            }
+
+            .method-card, .steps-section, .free-application, .tips-section {
+                padding: 20px;
+            }
+
+            #page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .step-item {
+                padding-left: 50px;
+            }
+
+            .step-item::before {
+                width: 25px;
+                height: 25px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page header -->
+    <div id="page-header">
+        <h1>Jak Znaleźć Pracę</h1>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Start</a></li>
+                <li><a href="O_nas.html">O nas</a></li>
+                <li><a href="kreator-cv-new.html">Kreator CV</a></li>
+                <li><a href="baza_cv.html">Baza CV</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="index.html#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Logo -->
+    <div class="logo">
+        <img src="images/logo.png" alt="Logo eCVjob.pl">
+    </div>
+
+    <!-- Main content -->
+    <main>
+        <section class="answer-section">
+            <h2 class="question-title">
+                <span class="question-icon">🔍</span>
+                Jak mogę znaleźć pracę na eCVjob.pl?
+            </h2>
+            
+            <div class="answer-content">
+                <p>eCVjob.pl to nowoczesna platforma rekrutacyjna, która łączy kandydatów z pracodawcami w całej Polsce. Oferujemy szeroki wybór ofert pracy we wszystkich branżach oraz zaawansowane narzędzia ułatwiające znalezienie idealnego stanowiska.</p>
+                
+                <p>Nasza platforma umożliwia nie tylko przeglądanie ofert, ale także bezpłatne aplikowanie na stanowiska z użyciem swojego CV w formacie PDF.</p>
+            </div>
+
+            <div class="free-application">
+                <div class="free-badge">100% GRATIS</div>
+                <div class="free-title">🎯 Bezpłatne aplikowanie z CV.pdf</div>
+                <div class="free-content">
+                    <p><strong>Aplikuj na oferty pracy całkowicie za darmo!</strong></p>
+                    <p>Wystarczy, że przesłasz swoje CV w formacie PDF bezpośrednio przez naszą platformę. Nie pobieramy żadnych opłat za aplikowanie na stanowiska - to nasza usługa dla kandydatów.</p>
+                    <p>Możesz aplikować na nieograniczoną liczbę ofert i śledzić status swoich aplikacji w panelu użytkownika.</p>
+                </div>
+            </div>
+
+            <div class="search-methods">
+                <div class="method-card">
+                    <div class="method-title">
+                        <span class="method-icon">🔎</span>
+                        Przeglądanie ofert
+                    </div>
+                    <div class="method-info">
+                        Szukaj pracy według branży, lokalizacji, rodzaju umowy i poziomu doświadczenia
+                    </div>
+                    <div class="method-details">
+                        <strong>Dostępne filtry:</strong>
+                        Lokalizacja, branża, poziom stanowiska, typ umowy
+                        <br><br>
+                        <strong>Funkcje:</strong> Zapisywanie ulubionych, powiadomienia o nowych ofertach
+                        <br>
+                        <strong>Dostęp:</strong> Bez rejestracji - przeglądanie, z rejestracją - aplikowanie
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-title">
+                        <span class="method-icon">📧</span>
+                        Alerty jobowe
+                    </div>
+                    <div class="method-info">
+                        Automatyczne powiadomienia o nowych ofertach dopasowanych do Twoich kryteriów
+                    </div>
+                    <div class="method-details">
+                        <strong>Personalizacja:</strong>
+                        Ustaw swoje preferencje dotyczące branży i lokalizacji
+                        <br>
+                        <strong>Częstotliwość:</strong> Codziennie, co tydzień lub natychmiast
+                        <br>
+                        <strong>Korzyści:</strong> Pierwszeństwo w aplikowaniu na nowe stanowiska
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-title">
+                        <span class="method-icon">👤</span>
+                        Profil kandydata
+                    </div>
+                    <div class="method-info">
+                        Stwórz kompletny profil zawodowy, który przyciągnie uwagę rekruterów
+                    </div>
+                    <div class="method-details">
+                        <strong>Zawartość:</strong>
+                        CV, doświadczenie, umiejętności, preferencje zawodowe
+                        <br>
+                        <strong>Widoczność:</strong> Możliwość ukrycia profilu przed obecnym pracodawcą
+                        <br>
+                        <strong>Bonus:</strong> Rekruterzy mogą znaleźć Cię i zaprosić do rozmowy
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-title">
+                        <span class="method-icon">📱</span>
+                        Aplikacja mobilna
+                    </div>
+                    <div class="method-info">
+                        Szukaj pracy w dowolnym miejscu i czasie z naszą mobilną aplikacją
+                    </div>
+                    <div class="method-details">
+                        <strong>Funkcje:</strong>
+                        Push notifications, szybkie aplikowanie, synchronizacja
+                        <br>
+                        <strong>Dostępność:</strong> iOS i Android
+                        <br>
+                        <strong>Wygoda:</strong> Aplikuj jednym dotknięciem, otrzymuj powiadomienia
+                    </div>
+                </div>
+            </div>
+
+            <div class="steps-section">
+                <div class="steps-title">📋 Instrukcja krok po kroku</div>
+                <p style="text-align: center; margin-bottom: 25px;">Postępuj zgodnie z poniższymi krokami, aby skutecznie znaleźć pracę:</p>
+                
+                <ol class="steps-list">
+                    <li class="step-item">
+                        <div class="step-title">Rejestracja na platformie</div>
+                        <div class="step-description">Załóż darmowe konto na eCVjob.pl. Podaj podstawowe dane osobowe i zawodowe. Zweryfikuj adres email, aby uzyskać pełny dostęp do funkcji platformy.</div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-title">Przygotowanie CV w formacie PDF</div>
+                        <div class="step-description">Przygotuj swoje CV w formacie PDF. Możesz skorzystać z naszego kreatora CV lub przesłać własny dokument. Upewnij się, że CV zawiera aktualne informacje i jest czytelne.</div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-title">Uzupełnienie profilu kandydata</div>
+                        <div class="step-description">Wypełnij szczegółowo swój profil: doświadczenie zawodowe, wykształcenie, umiejętności, języki obce. Im bardziej kompletny profil, tym lepsze dopasowanie ofert.</div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-title">Wyszukiwanie odpowiednich ofert</div>
+                        <div class="step-description">Użyj filtrów wyszukiwania, aby znaleźć oferty dopasowane do Twoich oczekiwań. Sprawdzaj regularnie nowe ogłoszenia lub ustaw alerty jobowe.</div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-title">Bezpłatne aplikowanie z CV.pdf</div>
+                        <div class="step-description">Kliknij "Aplikuj" przy wybranej ofercie i prześlij swoje CV.pdf wraz z listem motywacyjnym. Aplikowanie jest całkowicie bezpłatne i nieograniczone.</div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-title">Śledzenie statusu aplikacji</div>
+                        <div class="step-description">Monitoruj swoje aplikacje w panelu użytkownika. Otrzymuj powiadomienia o odpowiedziach pracodawców i zaproszeniach na rozmowy kwalifikacyjne.</div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="tips-section">
+                <div class="tips-title">💡 Wskazówki dla skutecznego poszukiwania pracy</div>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-title">📄 Profesjonalne CV</div>
+                        <div class="tip-description">Przygotuj CV dostosowane do stanowiska. Używaj słów kluczowych z oferty pracy i podkreślaj najważniejsze osiągnięcia zawodowe.</div>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">✉️ Spersonalizowany list motywacyjny</div>
+                        <div class="tip-description">Pisz unikalny list motywacyjny do każdej aplikacji. Wyjaśnij dlaczego jesteś idealnym kandydatem na dane stanowisko.</div>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">🎯 Realistyczne oczekiwania</div>
+                        <div class="tip-description">Aplikuj na stanowiska, które odpowiadają Twojemu doświadczeniu i kwalifikacjom. Bądź otwarty na różne możliwości rozwoju.</div>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">📞 Przygotowanie do rozmów</div>
+                        <div class="tip-description">Przeczytaj dokładnie opis firmy i stanowiska przed rozmową. Przygotuj pytania o firmę i zadania na stanowisku.</div>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">⏰ Regularne sprawdzanie</div>
+                        <div class="tip-description">Sprawdzaj nowe oferty codziennie lub ustaw alerty. Najlepsze stanowiska są szybko zapełniane przez aktywnych kandydatów.</div>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">🌐 Aktywność online</div>
+                        <div class="tip-description">Utrzymuj aktualny profil zawodowy. Dodawaj nowe umiejętności i doświadczenia, aby być widocznym dla rekruterów.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="answer-content">
+                <h3 style="color: #00ff00; margin-bottom: 15px;">🚀 Dlaczego warto korzystać z eCVjob.pl?</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="padding: 8px 0; border-bottom: 1px solid rgba(0,255,0,0.2);"><span style="color: #00ff00;">✓</span> <strong>Bezpłatne aplikowanie:</strong> Wysyłaj CV.pdf bez dodatkowych kosztów</li>
+                    <li style="padding: 8px 0; border-bottom: 1px solid rgba(0,255,0,0.2);"><span style="color: #00ff00;">✓</span> <strong>Szeroki wybór ofert:</strong> Tysiące aktualnych ogłoszeń o pracę</li>
+                    <li style="padding: 8px 0; border-bottom: 1px solid rgba(0,255,0,0.2);"><span style="color: #00ff00;">✓</span> <strong>Zaawansowane filtry:</strong> Precyzyjne wyszukiwanie ofert</li>
+                    <li style="padding: 8px 0; border-bottom: 1px solid rgba(0,255,0,0.2);"><span style="color: #00ff00;">✓</span> <strong>Alerty jobowe:</strong> Automatyczne powiadomienia o nowych ofertach</li>
+                    <li style="padding: 8px 0; border-bottom: 1px solid rgba(0,255,0,0.2);"><span style="color: #00ff00;">✓</span> <strong>Wsparcie eksperckie:</strong> Porady rekrutacyjne i tips zawodowe</li>
+                    <li style="padding: 8px 0;"><span style="color: #00ff00;">✓</span> <strong>Mobilna aplikacja:</strong> Poszukiwanie pracy w każdym miejscu</li>
+                </ul>
+            </div>
+
+            <a href="faq.html" class="back-button">Powrót do FAQ</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 eCVjob.pl. Wszelkie prawa zastrzeżone.</p>
+    </footer>    <script src="js/logo.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodawanie ofert pracy - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+        /* Basic reset and body styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Page header styling */
+        #page-header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 2px solid #00ff00;
+            width: 100%;
+        }
+
+        #page-header h1 {
+            color: #00ff00;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        /* Navigation styling */
+        nav {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        nav ul li {
+            flex: 1 1 auto;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 15px 10px;
+            color: #fff;
+            text-decoration: none;
+            border-right: 1px solid #00ff00;
+            transition: background 0.3s ease, color 0.3s ease;
+            font-weight: bold;
+        }
+
+        nav ul li:last-child a {
+            border-right: none;
+        }
+
+        nav ul li a:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        /* Logo styling */
+        .logo {
+            position: fixed;
+            right: 20px;
+            top: 80px;
+            width: 150px;
+            height: 150px;
+            z-index: 9999;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 2px 8px rgba(0, 255, 0, 0.3));
+        }
+
+        /* Main content styling */
+        main {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* Answer section styling */
+        .answer-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .question-title {
+            color: #00ff00;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .question-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 5px #00ff00);
+        }
+
+        .answer-content {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .answer-content p {
+            margin-bottom: 20px;
+        }
+
+        /* Back button */
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #00cc00 0%, #00aa00 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 255, 0, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ff00;
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: bold;
+            width: 100%;
+            border-top: 1px solid #00ff00;
+            margin-top: auto;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            main {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .answer-section {
+                padding: 25px 20px;
+            }
+
+            .question-title {
+                font-size: 1.8rem;
+            }
+
+            #page-header h1 {
+                font-size: 2rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+                top: 60px;
+                right: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                width: 100%;
+                min-width: unset;
+            }
+
+            nav ul li a {
+                border-right: none;
+                border-bottom: 1px solid #00ff00;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .answer-section {
+                padding: 20px 15px;
+            }
+
+            .question-title {
+                font-size: 1.5rem;
+            }
+
+            #page-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page header -->
+    <div id="page-header">
+        <h1>Dodawanie Ofert Pracy</h1>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Start</a></li>
+                <li><a href="O_nas.html">O nas</a></li>
+                <li><a href="kreator-cv-new.html">Kreator CV</a></li>
+                <li><a href="baza_cv.html">Baza CV</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cv-tips.html">CV Tips</a></li>
+                <li><a href="webresume.html">WebResume</a></li>
+                <li><a href="cv-europass.html">CV Europass</a></li>
+                <li><a href="login.html">Logowanie/Rejestracja</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="index.html#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Logo -->
+    <div class="logo">
+        <img src="images/logo.png" alt="Logo eCVjob.pl">
+    </div>
+
+    <!-- Main content -->
+    <main>
+        <section class="answer-section">
+            <h2 class="question-title">
+                <span class="question-icon">💼</span>
+                Jak mogę dodać ofertę pracy na eCVjob.pl?
+            </h2>
+            
+            <div class="answer-content">
+                <p>eCVjob.pl oferuje elastyczne opcje publikowania ofert pracy, dostosowane do różnych potrzeb pracodawców. Możesz skorzystać z darmowej oferty testowej lub wybrać jeden z płatnych pakietów.</p>
+                
+                <p><strong>Dostępne opcje:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li><strong>Darmowa oferta testowa</strong> - jedna oferta na 30 dni</li>
+                    <li><strong>Pakiet Standard (29,99 zł/mies)</strong> - 5 ofert miesięcznie na 60 dni każda</li>
+                    <li><strong>Pakiet Premium (99,99 zł/mies)</strong> - nieograniczona ilość ofert na 90 dni każda</li>
+                </ul>
+                
+                <p><strong>Jak dodać ofertę - kroki:</strong></p>
+                <ol style="margin-left: 20px; margin-bottom: 20px;">
+                    <li>Zarejestruj się lub zaloguj jako pracodawca</li>
+                    <li>Wybierz odpowiedni pakiet publikacji</li>
+                    <li>Wypełnij formularz oferty (stanowisko, wynagrodzenie, lokalizacja, wymagania)</li>
+                    <li>Wybierz kategorię i branżę</li>
+                    <li>Dokonaj płatności (jeśli dotyczy)</li>
+                    <li>Opublikuj ofertę</li>
+                </ol>
+                
+                <p>Twoja oferta będzie widoczna dla kandydatów natychmiast po publikacji. Otrzymasz powiadomienia o nowych aplikacjach na podany adres email.</p>
+            </div>
+
+            <a href="faq.html" class="back-button">Powrót do FAQ</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 eCVjob.pl. Wszelkie prawa zastrzeżone.</p>
+    </footer>    <script src="js/logo.js"></script>
+
+</body>
+</html>
+

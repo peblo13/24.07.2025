@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Template - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+        /* Dodatkowe style specyficzne dla CV - uzupełniające styles.css */
+        .cv-container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border: 2px solid #00ff00;
+            max-width: 900px;
+            width: 90%;
+            margin: 20px auto;
+            position: relative;
+            z-index: 5;
+            color: #ffffff;
+        }
+
+        .cv-header {
+            text-align: center;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .cv-photo-section {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cv-photo-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #00ff00;
+            overflow: hidden;
+            background: rgba(0, 255, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cv-photo-container:hover {
+            border-color: #ffffff;
+            background: rgba(0, 255, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .cv-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .cv-photo-placeholder {
+            color: #00ff00;
+            font-size: 3rem;
+            text-align: center;
+        }
+
+        .cv-photo-upload {
+            display: none;
+        }
+
+        .cv-photo-btn {
+            background: #00ff00;
+            color: #000000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cv-photo-btn:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .cv-photo-remove {
+            background: #ff4444;
+            color: #ffffff;
+            margin-left: 10px;
+        }
+
+        .cv-photo-remove:hover {
+            background: #ff6666;
+        }
+
+        .cv-name {
+            font-size: 2.5rem;
+            color: #00ff00;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cv-title {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .cv-contact {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .cv-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .cv-contact-item i {
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+
+        .cv-section {
+            margin-bottom: 30px;
+        }
+
+        .cv-section-title {
+            font-size: 1.8rem;
+            color: #00ff00;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .cv-item {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00ff00;
+            transition: all 0.3s ease;
+        }
+
+        .cv-item:hover {
+            background: rgba(0, 255, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .cv-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .cv-item-title {
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .cv-item-company {
+            color: #00ff00;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .cv-item-period {
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.2);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .cv-item-description {
+            color: #ffffff;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        .cv-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .cv-skill {
+            background: rgba(0, 255, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cv-skill:hover {
+            background: rgba(0, 255, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .cv-skill-name {
+            flex: 1;
+            text-align: left;
+        }
+
+        .cv-skill-rating {
+            display: flex;
+            gap: 2px;
+            margin-left: 10px;
+        }
+
+        .cv-star {
+            font-size: 1.1rem;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .cv-star.filled {
+            color: #FFD700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+
+        .cv-languages {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cv-language {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #00ff00;
+            text-align: center;
+            min-width: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cv-language-name {
+            color: #00ff00;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .cv-language-level {
+            color: #ffffff;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .cv-language-rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .cv-language-star {
+            font-size: 1rem;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .cv-language-star.filled {
+            color: #FFD700;
+            text-shadow: 0 0 3px rgba(255, 215, 0, 0.5);
+        }
+
+        .cv-two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .cv-education-item {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #00ff00;
+            margin-bottom: 15px;
+        }
+
+        .cv-degree {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .cv-school {
+            color: #00ff00;
+            margin: 5px 0;
+        }
+
+        .cv-year {
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        .cv-print-btn {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #00ff00;
+            color: #000000;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .cv-print-btn:hover {
+            background: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .cv-download-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 10px;
+            border: 2px dashed #00ff00;
+        }
+
+        .cv-download-btn {
+            background: #00ff00;
+            color: #000000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .cv-download-btn:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cv-container {
+                padding: 20px;
+                width: 95%;
+            }
+
+            .cv-name {
+                font-size: 2rem;
+            }
+
+            .cv-contact {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .cv-item-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .cv-two-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .cv-photo-section {
+                margin-bottom: 15px;
+            }
+
+            .cv-photo-container {
+                width: 120px;
+                height: 120px;
+            }
+
+            .cv-photo-placeholder {
+                font-size: 2rem;
+            }
+
+            .cv-photo-placeholder span {
+                font-size: 0.7rem !important;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white !important;
+            }
+
+            .cv-container {
+                background: white !important;
+                border: 1px solid #000 !important;
+                color: #000 !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 20px !important;
+            }
+
+            .cv-name, .cv-section-title, .cv-contact-item, .cv-skill-name, .cv-language-name {
+                color: #000 !important;
+            }
+
+            .cv-item-title, .cv-item-description, .cv-degree, .cv-language-level {
+                color: #333 !important;
+            }
+
+            .cv-star, .cv-language-star {
+                color: #333 !important;
+            }
+
+            .cv-star.filled, .cv-language-star.filled {
+                color: #FFD700 !important;
+            }
+
+            .cv-photo-container, .cv-photo, .cv-photo-placeholder {
+                display: none !important;
+            }
+
+            .cv-photo-section {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Licznik ofert pracy na górze strony -->
+    <div id="job-count" style="width:100%;color:#00ff00;font-weight:bold;font-size:2.2rem;text-align:center;margin:20px 0 10px 0;">Liczba aktualnych ofert pracy: ...</div>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Start</a></li>
+                <li><a href="O_nas.html">O nas</a></li>
+                <li><a href="kreator-cv-new.html">Kreator CV</a></li>
+                <li><a href="baza_cv.html">Baza CV</a></li>
+                <li><a href="index.html#oferty-pracy">Oferty Pracy</a></li>
+                <li><a href="#" onclick="openJobForm(); return false;">Dodaj Ofertę Pracy</a></li>
+                <li><a href="index.html#uslugi">Usługi</a></li>
+                <li><a href="#" onclick="openServiceForm(); return false;">Dodaj Usługę</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cv-tips.html">CV Tips</a></li>
+                <li><a href="webresume.html">WebResume</a></li>
+                <li><a href="cv-europass.html">CV Europass</a></li>
+                <li><a href="login.html">Logowanie/Rejestracja</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="index.html#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Przycisk drukowania -->
+    <button class="cv-print-btn" onclick="window.print()" title="Drukuj CV">🖨️</button>
+
+    <!-- Główna zawartość strony -->
+    <main>
+        <!-- Sekcja pobierania CV -->
+        <div class="cv-download-section">
+            <h2 style="color: #00ff00; margin-bottom: 15px;">💼 Szablon CV - eCVjob.pl Professional</h2>
+            <p style="color: #ffffff; margin-bottom: 15px;">Edytuj dane i pobierz CV w formacie PDF lub Word, lub skorzystaj z kreatora!</p>
+            <div style="background: rgba(0, 255, 0, 0.1); border: 1px solid #00ff00; border-radius: 8px; padding: 15px; margin: 15px 0; color: #00ff00;">
+                <strong>📷 Funkcja zdjęcia profilowego</strong><br>
+                Dodaj swoje zdjęcie klikając w obszar zdjęcia lub przycisk "Wybierz zdjęcie".
+            </div>
+            <button class="cv-download-btn" onclick="downloadCV('pdf')">📄 Pobierz PDF</button>
+            <button class="cv-download-btn" onclick="downloadCV('word')">📝 Pobierz DOCX</button>
+            <button class="cv-download-btn" onclick="window.location.href='cv-form.html'">✏️ Edytuj dane</button>
+            <button class="cv-download-btn" onclick="window.location.href='kreator-cv-new.html'">🎨 Kreator CV</button>
+        </div>
+
+        <!-- Kontener CV -->
+        <div class="cv-container">
+            <!-- Nagłówek CV -->
+            <div class="cv-header">
+                <!-- Sekcja zdjęcia -->
+                <div class="cv-photo-section">
+                    <div class="cv-photo-container" onclick="document.getElementById('photoUpload').click()">
+                        <div class="cv-photo-placeholder" id="photoPlaceholder">
+                            📷<br>
+                            <span style="font-size: 0.8rem;">Zdjęcie zostanie załadowane automatycznie</span>
+                        </div>
+                        <img id="cvPhoto" class="cv-photo" style="display: none;" alt="Zdjęcie CV">
+                    </div>
+                    <input type="file" id="photoUpload" class="cv-photo-upload" accept="image/*">
+                    <div>
+                        <button class="cv-photo-btn" onclick="document.getElementById('photoUpload').click()">
+                            📁 Wybierz zdjęcie
+                        </button>
+                        <button class="cv-photo-btn cv-photo-remove" onclick="removePhoto()" id="removePhotoBtn" style="display: none;">
+                            🗑️ Usuń
+                        </button>
+                    </div>
+                </div>
+
+                <h1 class="cv-name">[Twoje Imię i Nazwisko]</h1>
+                <h2 class="cv-title">[Twoja Specjalizacja]</h2>
+                <div class="cv-contact">
+                    <div class="cv-contact-item">
+                        <i>📧</i>
+                        <span>[twoj.email@example.com]</span>
+                    </div>
+                    <div class="cv-contact-item">
+                        <i>📱</i>
+                        <span>[+48 000 000 000]</span>
+                    </div>
+                    <div class="cv-contact-item">
+                        <i>📍</i>
+                        <span>[Twoje Miasto]</span>
+                    </div>
+                    <div class="cv-contact-item">
+                        <i>💼</i>
+                        <span>[Twoja Firma/Portfolio]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profil zawodowy -->
+            <div class="cv-section">
+                <h3 class="cv-section-title">👨‍💼 Profil zawodowy</h3>
+                <div class="cv-item">
+                    <p class="cv-item-description">
+                        [Wpisz tutaj swój profil zawodowy - krótki opis swojego doświadczenia, 
+                        umiejętności i celów zawodowych. To pierwsze, co widzi pracodawca, 
+                        więc postaraj się zaprezentować swoje największe atuty w 2-3 zdaniach.]
+                    </p>
+                </div>
+            </div>
+
+            <!-- Doświadczenie zawodowe -->
+            <div class="cv-section">
+                <h3 class="cv-section-title">💼 Doświadczenie zawodowe</h3>
+                
+                <div class="cv-item">
+                    <div class="cv-item-header">
+                        <div>
+                            <div class="cv-item-title">[Stanowisko 1]</div>
+                            <div class="cv-item-company">[Nazwa Firmy 1]</div>
+                        </div>
+                        <div class="cv-item-period">[MM/RRRR - obecnie]</div>
+                    </div>
+                    <div class="cv-item-description">
+                        • [Opisz swoje główne obowiązki i osiągnięcia]<br>
+                        • [Wymień konkretne projekty i technologie]<br>
+                        • [Podaj mierzalne rezultaty jeśli to możliwe]<br>
+                        • [Wspomnij o współpracy w zespole]
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item-header">
+                        <div>
+                            <div class="cv-item-title">[Stanowisko 2]</div>
+                            <div class="cv-item-company">[Nazwa Firmy 2]</div>
+                        </div>
+                        <div class="cv-item-period">[MM/RRRR - MM/RRRR]</div>
+                    </div>
+                    <div class="cv-item-description">
+                        • [Opisz swoje główne obowiązki i osiągnięcia]<br>
+                        • [Wymień konkretne projekty i technologie]<br>
+                        • [Podaj mierzalne rezultaty jeśli to możliwe]
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item-header">
+                        <div>
+                            <div class="cv-item-title">[Stanowisko 3]</div>
+                            <div class="cv-item-company">[Nazwa Firmy 3]</div>
+                        </div>
+                        <div class="cv-item-period">[MM/RRRR - MM/RRRR]</div>
+                    </div>
+                    <div class="cv-item-description">
+                        • [Opisz swoje główne obowiązki i osiągnięcia]<br>
+                        • [Wymień konkretne projekty i technologie]<br>
+                        • [Podaj mierzalne rezultaty jeśli to możliwe]
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wykształcenie i umiejętności w dwóch kolumnach -->
+            <div class="cv-two-column">
+                <!-- Wykształcenie -->
+                <div class="cv-section">
+                    <h3 class="cv-section-title">🎓 Wykształcenie</h3>
+                    
+                    <div class="cv-education-item">
+                        <div class="cv-degree">[Nazwa Kierunku/Specjalizacji]</div>
+                        <div class="cv-school">[Nazwa Uczelni/Szkoły]</div>
+                        <div class="cv-year">[RRRR - RRRR]</div>
+                        <p style="color: #ffffff; margin-top: 10px; font-size: 0.9rem;">
+                            [Dodatkowe informacje o wykształceniu]<br>
+                            [np. średnia ocen, wyróżnienia, specjalizacja]
+                        </p>
+                    </div>
+
+                    <div class="cv-education-item">
+                        <div class="cv-degree">[Dodatkowe kursy/certyfikaty]</div>
+                        <div class="cv-school">[Platforma/Instytucja]</div>
+                        <div class="cv-year">[RRRR]</div>
+                        <p style="color: #ffffff; margin-top: 10px; font-size: 0.9rem;">
+                            [Opis ukończonych kursów]<br>
+                            [Lista głównych tematów/technologii]
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Języki obce -->
+                <div class="cv-section">
+                    <h3 class="cv-section-title">🌍 Języki obce</h3>
+                    
+                    <div class="cv-languages">
+                        <div class="cv-language">
+                            <div class="cv-language-name">[Język 1]</div>
+                            <div class="cv-language-level">[Poziom - np. C1]</div>
+                            <div class="cv-language-rating">
+                                <span class="cv-language-star filled">★</span>
+                                <span class="cv-language-star filled">★</span>
+                                <span class="cv-language-star filled">★</span>
+                                <span class="cv-language-star filled">★</span>
+                                <span class="cv-language-star filled">★</span>
+                            </div>
+                        </div>
+                        
+                        <div class="cv-language">
+                            <div class="cv-language-name">[Język 2]</div>
+                            <div class="cv-language-level">[Poziom - np. B2]</div>
+                            <div class="cv-language-rating">
+                                <span class="cv-language-star filled">★</span>
+                                <span class="cv-language-star filled">★</span>
+                                <span class="cv-language-star filled">★</span>
+                                <span class="cv-language-star filled">★</span>
+                                <span class="cv-language-star">★</span>
+                            </div>
+                        </div>
+                        
+                        <div class="cv-language">
+                            <div class="cv-language-name">[Język 3]</div>
+                            <div class="cv-language-level">[Poziom - np. A2]</div>
+                            <div class="cv-language-rating">
+                                <span class="cv-language-star filled">★</span>
+                                <span class="cv-language-star filled">★</span>
+                                <span class="cv-language-star">★</span>
+                                <span class="cv-language-star">★</span>
+                                <span class="cv-language-star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Umiejętności techniczne -->
+            <div class="cv-section">
+                <h3 class="cv-section-title">🛠️ Umiejętności techniczne</h3>
+                <div class="cv-skills-grid">
+                    <div class="cv-skill">
+                        <span class="cv-skill-name">[Umiejętność 1]</span>
+                        <div class="cv-skill-rating">
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                        </div>
+                    </div>
+                    <div class="cv-skill">
+                        <span class="cv-skill-name">[Umiejętność 2]</span>
+                        <div class="cv-skill-rating">
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star">★</span>
+                        </div>
+                    </div>
+                    <div class="cv-skill">
+                        <span class="cv-skill-name">[Umiejętność 3]</span>
+                        <div class="cv-skill-rating">
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star">★</span>
+                        </div>
+                    </div>
+                    <div class="cv-skill">
+                        <span class="cv-skill-name">[Umiejętność 4]</span>
+                        <div class="cv-skill-rating">
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star">★</span>
+                            <span class="cv-star">★</span>
+                        </div>
+                    </div>
+                    <div class="cv-skill">
+                        <span class="cv-skill-name">[Umiejętność 5]</span>
+                        <div class="cv-skill-rating">
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star">★</span>
+                        </div>
+                    </div>
+                    <div class="cv-skill">
+                        <span class="cv-skill-name">[Umiejętność 6]</span>
+                        <div class="cv-skill-rating">
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star filled">★</span>
+                            <span class="cv-star">★</span>
+                            <span class="cv-star">★</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certyfikaty i kursy -->
+            <div class="cv-section">
+                <h3 class="cv-section-title">🏆 Certyfikaty i kursy</h3>
+                
+                <div class="cv-item">
+                    <div class="cv-item-header">
+                        <div>
+                            <div class="cv-item-title">[Nazwa Kursu/Certyfikatu 1]</div>
+                            <div class="cv-item-company">[Platforma/Instytucja]</div>
+                        </div>
+                        <div class="cv-item-period">[RRRR]</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item-header">
+                        <div>
+                            <div class="cv-item-title">[Nazwa Kursu/Certyfikatu 2]</div>
+                            <div class="cv-item-company">[Platforma/Instytucja]</div>
+                        </div>
+                        <div class="cv-item-period">[RRRR]</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item-header">
+                        <div>
+                            <div class="cv-item-title">[Nazwa Kursu/Certyfikatu 3]</div>
+                            <div class="cv-item-company">[Platforma/Instytucja]</div>
+                        </div>
+                        <div class="cv-item-period">[RRRR]</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projekty i osiągnięcia -->
+            <div class="cv-section">
+                <h3 class="cv-section-title">🚀 Kluczowe projekty</h3>
+                
+                <div class="cv-item">
+                    <div class="cv-item-header">
+                        <div>
+                            <div class="cv-item-title">[Nazwa Projektu 1]</div>
+                            <div class="cv-item-company">[Typ projektu - np. Projekt zawodowy]</div>
+                        </div>
+                        <div class="cv-item-period">[RRRR-RRRR]</div>
+                    </div>
+                    <div class="cv-item-description">
+                        • [Opis projektu i użytych technologii]<br>
+                        • [Główne funkcjonalności które implementowałeś]<br>
+                        • [Rezultaty i osiągnięcia]<br>
+                        • [Link do projektu jeśli jest dostępny]
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item-header">
+                        <div>
+                            <div class="cv-item-title">[Nazwa Projektu 2]</div>
+                            <div class="cv-item-company">[Typ projektu]</div>
+                        </div>
+                        <div class="cv-item-period">[RRRR]</div>
+                    </div>
+                    <div class="cv-item-description">
+                        • [Opis projektu i użytych technologii]<br>
+                        • [Główne funkcjonalności które implementowałeś]<br>
+                        • [Rezultaty i osiągnięcia]
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zainteresowania -->
+            <div class="cv-section">
+                <h3 class="cv-section-title">🎯 Zainteresowania</h3>
+                <div class="cv-item">
+                    <div class="cv-item-description">
+                        <strong>Zawodowe:</strong> [Twoje zainteresowania związane z pracą]<br>
+                        <strong>Technologie:</strong> [Nowe technologie które Cię interesują]<br>
+                        <strong>Hobby:</strong> [Twoje hobby i zainteresowania prywatne]<br>
+                        <strong>Rozwój:</strong> [Obszary w których chcesz się rozwijać]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 eCVjob.pl. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script src="js/logo.js"></script>
+    <script>
+        // Funkcja obsługi zdjęcia
+        document.getElementById('photoUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Sprawdź czy to obraz
+                if (!file.type.startsWith('image/')) {
+                    alert('❌ Proszę wybrać plik obrazu (JPG, PNG, GIF, itp.)');
+                    return;
+                }
+
+                // Sprawdź rozmiar pliku (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('❌ Plik jest za duży! Maksymalny rozmiar to 5MB.');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Pokaż zdjęcie
+                    const photo = document.getElementById('cvPhoto');
+                    const placeholder = document.getElementById('photoPlaceholder');
+                    const removeBtn = document.getElementById('removePhotoBtn');
+
+                    photo.src = e.target.result;
+                    photo.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    removeBtn.style.display = 'inline-block';
+
+                    // Zapisz w localStorage dla późniejszego użycia
+                    localStorage.setItem('cvPhoto', e.target.result);
+                    
+                    console.log('✅ Zdjęcie zostało załadowane pomyślnie!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Funkcja usuwania zdjęcia
+        function removePhoto() {
+            const photo = document.getElementById('cvPhoto');
+            const placeholder = document.getElementById('photoPlaceholder');
+            const removeBtn = document.getElementById('removePhotoBtn');
+            const fileInput = document.getElementById('photoUpload');
+
+            photo.style.display = 'none';
+            placeholder.style.display = 'block';
+            removeBtn.style.display = 'none';
+            fileInput.value = '';
+
+            // Usuń z localStorage
+            localStorage.removeItem('cvPhoto');
+            
+            console.log('🗑️ Zdjęcie zostało usunięte');
+        }
+
+        // Wczytaj zapisane zdjęcie przy ładowaniu strony
+        function loadSavedPhoto() {
+            const savedPhoto = localStorage.getItem('cvPhoto');
+            if (savedPhoto) {
+                const photo = document.getElementById('cvPhoto');
+                const placeholder = document.getElementById('photoPlaceholder');
+                const removeBtn = document.getElementById('removePhotoBtn');
+
+                photo.src = savedPhoto;
+                photo.style.display = 'block';
+                placeholder.style.display = 'none';
+                removeBtn.style.display = 'inline-block';
+            }
+        }
+
+        // Funkcja do automatycznego wczytania przykładowego zdjęcia
+        function loadExamplePhoto() {
+            // Sprawdź czy już nie ma zapisanego zdjęcia
+            const savedPhoto = localStorage.getItem('cvPhoto');
+            if (savedPhoto) {
+                const photo = document.getElementById('cvPhoto');
+                const placeholder = document.getElementById('photoPlaceholder');
+                const removeBtn = document.getElementById('removePhotoBtn');
+
+                photo.src = savedPhoto;
+                photo.style.display = 'block';
+                placeholder.style.display = 'none';
+                removeBtn.style.display = 'inline-block';
+                return; // Nie wczytuj przykładowego zdjęcia jeśli jest zapisane
+            }
+
+            // Próbuj załadować przykładowe zdjęcie paweł AI.jpg (tylko jako demo)
+            const img = new Image();
+            img.onload = function() {
+                const photo = document.getElementById('cvPhoto');
+                const placeholder = document.getElementById('photoPlaceholder');
+                const removeBtn = document.getElementById('removePhotoBtn');
+
+                photo.src = 'images/paweł AI.jpg';
+                photo.style.display = 'block';
+                placeholder.style.display = 'none';
+                removeBtn.style.display = 'inline-block';
+                
+                console.log('✅ Przykładowe zdjęcie zostało załadowane (demo)');
+            };
+            img.onerror = function() {
+                console.log('ℹ️ Przykładowe zdjęcie niedostępne. Można dodać swoje zdjęcie ręcznie.');
+            };
+            img.src = 'images/paweł AI.jpg';
+        }
+
+        // Licznik ofert pracy
+        document.addEventListener('DOMContentLoaded', function() {
+            const jobCount = Math.floor(Math.random() * 500) + 200;
+            document.getElementById('job-count').textContent = `Liczba aktualnych ofert pracy: ${jobCount}`;
+            
+            // Sprawdź czy są dane z formularza
+            const formData = localStorage.getItem('cvFormData');
+            if (formData) {
+                loadFormData(JSON.parse(formData));
+            } else {
+                // Wczytaj przykładowe zdjęcie (demo) lub zapisane zdjęcie użytkownika
+                loadExamplePhoto();
+            }
+        });
+
+        // Funkcja wczytywania danych z formularza
+        function loadFormData(data) {
+            // Wczytaj zdjęcie
+            if (data.photo) {
+                const photo = document.getElementById('cvPhoto');
+                const placeholder = document.getElementById('photoPlaceholder');
+                const removeBtn = document.getElementById('removePhotoBtn');
+
+                photo.src = data.photo;
+                photo.style.display = 'block';
+                placeholder.style.display = 'none';
+                removeBtn.style.display = 'inline-block';
+            }
+
+            // Wczytaj dane osobowe
+            if (data.fullName) {
+                document.querySelector('.cv-name').textContent = data.fullName.toUpperCase();
+            }
+            if (data.jobTitle) {
+                document.querySelector('.cv-title').textContent = data.jobTitle;
+            }
+
+            // Wczytaj dane kontaktowe
+            const contactItems = document.querySelectorAll('.cv-contact-item span');
+            if (contactItems.length >= 4) {
+                if (data.email) contactItems[0].textContent = data.email;
+                if (data.phone) contactItems[1].textContent = data.phone;
+                if (data.city) contactItems[2].textContent = data.city;
+                if (data.portfolio) contactItems[3].textContent = data.portfolio;
+            }
+
+            // Wczytaj profil zawodowy
+            if (data.profile) {
+                document.querySelector('.cv-item-description').textContent = data.profile;
+            }
+
+            // Wczytaj doświadczenie zawodowe
+            if (data.experience && data.experience.length > 0) {
+                const experienceSection = document.querySelector('.cv-section:nth-of-type(2)');
+                const experienceContainer = experienceSection.querySelector('.cv-section-title').nextElementSibling;
+                
+                // Usuń istniejące elementy doświadczenia
+                while (experienceContainer && experienceContainer.classList.contains('cv-item')) {
+                    experienceContainer.remove();
+                    experienceContainer = experienceSection.querySelector('.cv-section-title').nextElementSibling;
+                }
+
+                // Dodaj nowe doświadczenia
+                data.experience.forEach(exp => {
+                    const expDiv = document.createElement('div');
+                    expDiv.className = 'cv-item';
+                    expDiv.innerHTML = `
+                        <div class="cv-item-header">
+                            <div>
+                                <div class="cv-item-title">${exp.position}</div>
+                                <div class="cv-item-company">${exp.company}</div>
+                            </div>
+                            <div class="cv-item-period">${exp.start}${exp.end ? ' - ' + exp.end : ''}</div>
+                        </div>
+                        <div class="cv-item-description">${exp.description.replace(/\n/g, '<br>')}</div>
+                    `;
+                    experienceSection.appendChild(expDiv);
+                });
+            }
+
+            // Wczytaj wykształcenie
+            if (data.education && data.education.length > 0) {
+                const educationContainer = document.querySelector('.cv-education-item').parentElement;
+                educationContainer.innerHTML = '';
+
+                data.education.forEach(edu => {
+                    const eduDiv = document.createElement('div');
+                    eduDiv.className = 'cv-education-item';
+                    eduDiv.innerHTML = `
+                        <div class="cv-degree">${edu.degree}</div>
+                        <div class="cv-school">${edu.school}</div>
+                        <div class="cv-year">${edu.years}</div>
+                        ${edu.additional ? `<p style="color: #ffffff; margin-top: 10px; font-size: 0.9rem;">${edu.additional}</p>` : ''}
+                    `;
+                    educationContainer.appendChild(eduDiv);
+                });
+            }
+
+            // Wczytaj umiejętności
+            if (data.skills && data.skills.length > 0) {
+                const skillsGrid = document.querySelector('.cv-skills-grid');
+                skillsGrid.innerHTML = '';
+
+                data.skills.forEach(skill => {
+                    const skillDiv = document.createElement('div');
+                    skillDiv.className = 'cv-skill';
+                    
+                    let stars = '';
+                    for (let i = 1; i <= 5; i++) {
+                        stars += `<span class="cv-star${i <= skill.rating ? ' filled' : ''}">★</span>`;
+                    }
+
+                    skillDiv.innerHTML = `
+                        <span class="cv-skill-name">${skill.name}</span>
+                        <div class="cv-skill-rating">${stars}</div>
+                    `;
+                    skillsGrid.appendChild(skillDiv);
+                });
+            }
+
+            // Wczytaj języki
+            if (data.languages && data.languages.length > 0) {
+                const languagesContainer = document.querySelector('.cv-languages');
+                languagesContainer.innerHTML = '';
+
+                data.languages.forEach(lang => {
+                    const langDiv = document.createElement('div');
+                    langDiv.className = 'cv-language';
+                    
+                    let stars = '';
+                    for (let i = 1; i <= 5; i++) {
+                        stars += `<span class="cv-language-star${i <= lang.rating ? ' filled' : ''}">★</span>`;
+                    }
+
+                    langDiv.innerHTML = `
+                        <div class="cv-language-name">${lang.name}</div>
+                        <div class="cv-language-level">${lang.level}</div>
+                        <div class="cv-language-rating">${stars}</div>
+                    `;
+                    languagesContainer.appendChild(langDiv);
+                });
+            }
+
+            console.log('✅ Dane z formularza zostały wczytane do CV!');
+        }
+
+        // Funkcje przekierowań
+        function openJobForm() {
+            window.location.href = 'index.html#add-job-offer';
+        }
+
+        function openServiceForm() {
+            window.location.href = 'index.html#add-service';
+        }
+
+        // Funkcja pobierania CV
+        function downloadCV(format) {
+            if (format === 'pdf') {
+                // Symulacja generowania PDF
+                alert('📄 Generowanie CV w formacie PDF...\n\nPlik zostanie pobrany za chwilę!\n\nMożesz również użyć funkcji drukowania przeglądarki (Ctrl+P) i wybrać "Zapisz jako PDF".');
+                
+                // W rzeczywistej aplikacji tutaj byłby kod generujący PDF
+                setTimeout(() => {
+                    // Symulacja pobierania
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.download = 'CV_Pawel_Sliwinski.pdf';
+                    document.body.appendChild(link);
+                    // link.click(); // Odkomentuj w rzeczywistej implementacji
+                    document.body.removeChild(link);
+                }, 1000);
+                
+            } else if (format === 'word') {
+                // Symulacja generowania DOCX
+                alert('📝 Generowanie CV w formacie Word...\n\nPlik DOCX zostanie pobrany za chwilę!\n\nBędziesz mógł edytować CV w Microsoft Word lub LibreOffice.');
+                
+                // W rzeczywistej aplikacji tutaj byłby kod generujący DOCX
+                setTimeout(() => {
+                    // Symulacja pobierania
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.download = 'CV_Pawel_Sliwinski.docx';
+                    document.body.appendChild(link);
+                    // link.click(); // Odkomentuj w rzeczywistej implementacji
+                    document.body.removeChild(link);
+                }, 1000);
+            }
+        }
+
+        // Funkcja drukowania z lepszym formatowaniem
+        function printCV() {
+            // Dodaj specjalne style dla druku przed wydrukowaniem
+            const printStyles = document.createElement('style');
+            printStyles.innerHTML = `
+                @media print {
+                    * { -webkit-print-color-adjust: exact !important; }
+                    body { background: white !important; }
+                    .cv-container { 
+                        background: white !important; 
+                        border: 2px solid #000 !important;
+                        color: #000 !important;
+                        box-shadow: none !important;
+                    }
+                }
+            `;
+            document.head.appendChild(printStyles);
+            
+            // Drukuj
+            window.print();
+            
+            // Usuń style po wydrukowaniu
+            setTimeout(() => {
+                document.head.removeChild(printStyles);
+            }, 1000);
+        }
+
+        // Smooth scroll dla linków
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animacja pojawiania się sekcji podczas scrollowania
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Obserwuj wszystkie sekcje CV
+        document.querySelectorAll('.cv-section, .cv-item').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Pokaż pierwszą sekcję od razu
+        document.querySelector('.cv-header').style.opacity = '1';
+        document.querySelector('.cv-header').style.transform = 'translateY(0)';
+    </script>
+</body>
+</html>

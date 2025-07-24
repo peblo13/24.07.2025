@@ -1,0 +1,63 @@
+/* Logo przypięte po prawej stronie - uniwersalny dla wszystkich stron */
+.logo {
+    position: fixed !important;
+    top: 50% !important;
+    right: 20px !important;
+    transform: translateY(-50%) !important;
+    z-index: -1 !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.3s ease !important;
+    pointer-events: auto !important;
+}
+
+.logo:hover {
+    opacity: 1 !important;
+}
+
+.logo img {
+    width: 80px !important;
+    height: auto !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 10px rgba(0,255,0,0.3) !important;
+    display: block !important;
+}
+
+/* Responsywne rozmiary logo */
+@media (max-width: 768px) {
+    .logo {
+        right: 10px !important;
+    }
+    
+    .logo img {
+        width: 60px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        right: 8px !important;
+    }
+    
+    .logo img {
+        width: 50px !important;
+    }
+}
+
+/* Zapewnienie, że logo jest pod wszystkimi innymi elementami */
+body * {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Wyjątki dla elementów, które powinny mieć wyższy z-index */
+.modal,
+.popup,
+.dropdown,
+.tooltip,
+.notification,
+header,
+nav,
+.form-overlay,
+.application-form-overlay {
+    z-index: 1000 !important;
+}

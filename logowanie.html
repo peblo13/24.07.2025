@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .loading-container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border: 2px solid #00ff00;
+            text-align: center;
+            max-width: 500px;
+            width: 80%;
+        }
+        
+        .loading {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 255, 0, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #00ff00;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        p {
+            color: #00ff00;
+            margin-top: 20px;
+        }
+        
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+            color: #ffffff;
+        }
+    </style>
+    <script>
+        // Automatyczne przekierowanie do strony logowania z zakładką logowania otwartą
+        window.onload = function() {
+            // Przekieruj do login.html i automatycznie pokaż formularz logowania
+            window.location.href = 'login.html#login';
+        };
+    </script>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="loading">Przekierowywanie do logowania...</div>
+        <div class="spinner"></div>
+        <p>Jeśli strona nie przekieruje automatycznie, <a href="login.html#login">kliknij tutaj</a>.</p>
+    </div>
+    <script src="js/logo.js"></script>
+</body>
+</html>

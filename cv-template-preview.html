@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podgląd Szablonu CV - eCVjob.pl</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+            zoom: 0.6; /* Zmniejszenie dla lepszego podglądu */
+        }
+
+        .cv-preview {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .cv-header {
+            text-align: center;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .cv-photo-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff00;
+            font-size: 2.5rem;
+        }
+
+        .cv-name {
+            color: #00ff00;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .cv-title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .cv-contact {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .cv-section {
+            margin-bottom: 25px;
+        }
+
+        .cv-section-title {
+            color: #00ff00;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .cv-item {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #00ff00;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .cv-item-title {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .cv-item-company {
+            color: #00ff00;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .cv-item-description {
+            color: #ffffff;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .cv-skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .cv-skill {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            padding: 10px;
+            border-radius: 8px;
+            color: #00ff00;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cv-rating {
+            color: #FFD700;
+        }
+
+        .watermark {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            color: #00ff00;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-preview">
+        <div class="cv-header">
+            <div class="cv-photo-placeholder">📷</div>
+            <h1 class="cv-name">Jan Kowalski</h1>
+            <h2 class="cv-title">Full-Stack Developer</h2>
+            <div class="cv-contact">
+                <span>📧 jan.kowalski@email.pl</span>
+                <span>📱 +48 600 123 456</span>
+                <span>📍 Warszawa</span>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h3 class="cv-section-title">💼 Doświadczenie</h3>
+            <div class="cv-item">
+                <div class="cv-item-title">Senior Developer</div>
+                <div class="cv-item-company">ABC Tech Sp. z o.o.</div>
+                <div class="cv-item-description">Rozwój aplikacji webowych w React.js i Node.js</div>
+            </div>
+            <div class="cv-item">
+                <div class="cv-item-title">Junior Developer</div>
+                <div class="cv-item-company">XYZ Software</div>
+                <div class="cv-item-description">Tworzenie stron internetowych w HTML, CSS, JavaScript</div>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h3 class="cv-section-title">🛠️ Umiejętności</h3>
+            <div class="cv-skills">
+                <div class="cv-skill">
+                    <span>JavaScript</span>
+                    <span class="cv-rating">★★★★★</span>
+                </div>
+                <div class="cv-skill">
+                    <span>React.js</span>
+                    <span class="cv-rating">★★★★☆</span>
+                </div>
+                <div class="cv-skill">
+                    <span>Node.js</span>
+                    <span class="cv-rating">★★★★☆</span>
+                </div>
+                <div class="cv-skill">
+                    <span>HTML/CSS</span>
+                    <span class="cv-rating">★★★★★</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h3 class="cv-section-title">🎓 Wykształcenie</h3>
+            <div class="cv-item">
+                <div class="cv-item-title">Informatyka</div>
+                <div class="cv-item-company">Uniwersytet Warszawski</div>
+                <div class="cv-item-description">Licencjat - 2018-2021</div>
+            </div>
+        </div>
+
+        <div class="watermark">eCVjob.pl</div>
+    </div>
+</body>
+</html>

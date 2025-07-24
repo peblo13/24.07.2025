@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj Ofertę Usługi</title>
+    <link rel="stylesheet" href="css/logo.css">
+    <link rel="stylesheet" href="css/dodaj_oferte_u.css">
+    <style>
+        /* Header and Navigation - dokładnie jak na FAQ z nadpisaniem zewnętrznych stylów */
+        header {
+            margin-bottom: 20px !important;
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 10px 20px !important;
+            position: relative !important;
+            z-index: 10 !important;
+            background: none !important;
+            box-shadow: none !important;
+        }
+
+        nav {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            background: none !important;
+        }
+
+        nav ul, .navbar ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex !important;
+            justify-content: center !important;
+            flex-wrap: wrap !important;
+            background-color: rgba(0, 0, 0, 0.8) !important;
+            border-radius: 5px !important;
+        }
+
+        nav ul li, .navbar ul li {
+            margin: 0 !important;
+        }
+
+        nav ul li a, .navbar ul li a {
+            display: block !important;
+            padding: 15px 20px !important;
+            color: #00ff00 !important;
+            text-decoration: none !important;
+            font-weight: bold !important;
+            transition: background-color 0.3s ease !important;
+        }
+
+        nav ul li a:hover, .navbar ul li a:hover {
+            background-color: rgba(0, 255, 0, 0.2) !important;
+            border-radius: 5px !important;
+        }
+
+        @media (max-width: 768px) {
+            nav ul, .navbar ul {
+                flex-direction: column !important;
+                text-align: center !important;
+            }
+            
+            nav ul li a, .navbar ul li a {
+                padding: 12px 15px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="site-title">Dodaj Ofertę Usługi</h1>
+    </header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="O_nas.html">O Nas</a></li>
+            <li><a href="kreator-cv-new.html">Kreator CV</a></li>
+            <li><a href="baza_cv.html">Baza CV</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="cv-tips.html">CV Tips</a></li>
+            <li><a href="webresume.html">WebResume</a></li>
+            <li><a href="cv-europass.html">CV Europass</a></li>
+            <li><a href="login.html">Logowanie/Rejestracja</a></li>
+            <li><a href="uslugi.html">Usługi</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="kariera.html">Kariera</a></li>
+        </ul>
+    </nav>
+    <section id="dodaj-oferte">
+        <h2>Dodaj Nową Ofertę Usługi</h2>
+        <form id="dodaj-oferte-form">
+            <label for="nazwa-firmy">Nazwa Firmy:</label>
+            <input type="text" id="nazwa-firmy" name="nazwa-firmy" required>
+
+            <label for="nazwa-uslugi">Nazwa Usługi:</label>
+            <input type="text" id="nazwa-uslugi" name="nazwa-uslugi" required>
+
+            <label for="lokalizacja">Lokalizacja:</label>
+            <input type="text" id="lokalizacja" name="lokalizacja" required>
+
+            <label for="opis">Opis Usługi:</label>
+            <textarea id="opis" name="opis" rows="5" required></textarea>
+
+            <label for="cena">Cena:</label>
+            <input type="text" id="cena" name="cena" required>
+
+            <button type="submit">Dodaj Usługę</button>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2025 eCVjob.pl</p>
+    </footer>
+    <div class="logo">
+        <img src="images/logo.png" alt="Logo">
+    </div>    <script src="js/logo.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,641 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tworzenie profesjonalnego CV - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+        /* Basic reset and body styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Page header styling */
+        #page-header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 2px solid #00ff00;
+            width: 100%;
+        }
+
+        #page-header h1 {
+            color: #00ff00;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        /* Navigation styling */
+        nav {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        nav ul li {
+            flex: 1 1 auto;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 15px 10px;
+            color: #fff;
+            text-decoration: none;
+            border-right: 1px solid #00ff00;
+            transition: background 0.3s ease, color 0.3s ease;
+            font-weight: bold;
+        }
+
+        nav ul li:last-child a {
+            border-right: none;
+        }
+
+        nav ul li a:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        /* Logo styling */
+        .logo {
+            position: fixed;
+            right: 20px;
+            top: 80px;
+            width: 150px;
+            height: 150px;
+            z-index: 9999;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 2px 8px rgba(0, 255, 0, 0.3));
+        }
+
+        /* Main content styling */
+        main {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* Answer section styling */
+        .answer-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .question-title {
+            color: #00ff00;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .question-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 5px #00ff00);
+        }
+
+        .answer-content {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .answer-content p {
+            margin-bottom: 20px;
+        }
+
+        /* CV sections styling */
+        .cv-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .cv-section {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cv-section:hover {
+            background: rgba(0, 255, 0, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.2);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-icon {
+            font-size: 2.2rem;
+            margin-right: 15px;
+            color: #00ff00;
+        }
+
+        .section-title {
+            color: #00ff00;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .section-description {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .section-tips {
+            list-style: none;
+            padding: 0;
+            counter-reset: tip-counter;
+        }
+
+        .section-tips li {
+            color: #fff;
+            padding: 8px 0;
+            position: relative;
+            padding-left: 30px;
+            counter-increment: tip-counter;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+        }
+
+        .section-tips li:last-child {
+            border-bottom: none;
+        }
+
+        .section-tips li:before {
+            content: "✓";
+            background: #00ff00;
+            color: #222;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* Tips section styling */
+        .pro-tips {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .tips-header {
+            color: #ffd700;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tips-icon {
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips-list li {
+            color: #fff;
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .tips-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tips-list li:before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+            font-size: 1.1rem;
+        }
+
+        /* Creator CTA section */
+        .creator-cta {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2) 0%, rgba(0, 255, 0, 0.1) 100%);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            color: #00ff00;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .cta-description {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, #00cc00 0%, #00aa00 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 255, 0, 0.4);
+        }
+
+        /* Back button */
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #00cc00 0%, #00aa00 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 255, 0, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ff00;
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: bold;
+            width: 100%;
+            border-top: 1px solid #00ff00;
+            margin-top: auto;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            main {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .answer-section {
+                padding: 25px 20px;
+            }
+
+            .question-title {
+                font-size: 1.8rem;
+            }
+
+            #page-header h1 {
+                font-size: 2rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+                top: 60px;
+                right: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                width: 100%;
+                min-width: unset;
+            }
+
+            nav ul li a {
+                border-right: none;
+                border-bottom: 1px solid #00ff00;
+            }
+
+            .cv-sections {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .section-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .answer-section {
+                padding: 20px 15px;
+            }
+
+            .question-title {
+                font-size: 1.5rem;
+            }
+
+            #page-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page header -->
+    <div id="page-header">
+        <h1>Tworzenie Profesjonalnego CV</h1>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Start</a></li>
+                <li><a href="O_nas.html">O nas</a></li>
+                <li><a href="kreator-cv-new.html">Kreator CV</a></li>
+                <li><a href="baza_cv.html">Baza CV</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cv-tips.html">CV Tips</a></li>
+                <li><a href="webresume.html">WebResume</a></li>
+                <li><a href="cv-europass.html">CV Europass</a></li>
+                <li><a href="login.html">Logowanie/Rejestracja</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="index.html#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Logo -->
+    <div class="logo">
+        <img src="images/logo.png" alt="Logo eCVjob.pl">
+    </div>
+
+    <!-- Main content -->
+    <main>
+        <section class="answer-section">
+            <h2 class="question-title">
+                <span class="question-icon">📝</span>
+                Jak mogę stworzyć profesjonalne CV?
+            </h2>
+            
+            <div class="answer-content">
+                <p>Stworzenie profesjonalnego CV to klucz do znalezienia wymarzonej pracy. Na eCVjob.pl oferujemy zaawansowany kreator CV, który pomoże Ci stworzyć dokumenty spełniające najwyższe standardy rekrutacyjne. Oto kompletny przewodnik po tworzeniu idealnego CV.</p>
+                
+                <p><strong>Kluczowe elementy profesjonalnego CV:</strong></p>
+            </div>
+
+            <div class="cv-sections">
+                <div class="cv-section">
+                    <div class="section-header">
+                        <span class="section-icon">👤</span>
+                        <div class="section-title">Dane personalne</div>
+                    </div>
+                    <div class="section-description">
+                        Podstawowe informacje o Tobie - pierwszy kontakt z pracodawcą.
+                    </div>
+                    <ul class="section-tips">
+                        <li>Imię i nazwisko w pełnej formie</li>
+                        <li>Profesjonalny adres email</li>
+                        <li>Aktualny numer telefonu</li>
+                        <li>Miasto zamieszkania (bez dokładnego adresu)</li>
+                        <li>Link do LinkedIn lub portfolio</li>
+                        <li>Profesjonalne zdjęcie (opcjonalnie)</li>
+                    </ul>
+                </div>
+
+                <div class="cv-section">
+                    <div class="section-header">
+                        <span class="section-icon">💼</span>
+                        <div class="section-title">Doświadczenie zawodowe</div>
+                    </div>
+                    <div class="section-description">
+                        Twoja historia kariery przedstawiona w sposób atrakcyjny dla rekruterów.
+                    </div>
+                    <ul class="section-tips">
+                        <li>Chronologia od najnowszego stanowiska</li>
+                        <li>Nazwa firmy, stanowisko, okres zatrudnienia</li>
+                        <li>3-5 kluczowych osiągnięć na każdym stanowisku</li>
+                        <li>Użyj liczb i konkretnych rezultatów</li>
+                        <li>Słowa kluczowe z branży</li>
+                        <li>Działania czasownikami w czasie przeszłym</li>
+                    </ul>
+                </div>
+
+                <div class="cv-section">
+                    <div class="section-header">
+                        <span class="section-icon">🎓</span>
+                        <div class="section-title">Wykształcenie</div>
+                    </div>
+                    <div class="section-description">
+                        Twoje kwalifikacje edukacyjne i certyfikaty branżowe.
+                    </div>
+                    <ul class="section-tips">
+                        <li>Nazwa uczelni i kierunek studiów</li>
+                        <li>Rok ukończenia lub planowanego ukończenia</li>
+                        <li>Średnia ocen (jeśli powyżej 4.0)</li>
+                        <li>Praca dyplomowa (jeśli związana z stanowiskiem)</li>
+                        <li>Kursy i certyfikaty branżowe</li>
+                        <li>Szkolenia i warsztaty</li>
+                    </ul>
+                </div>
+
+                <div class="cv-section">
+                    <div class="section-header">
+                        <span class="section-icon">⚡</span>
+                        <div class="section-title">Umiejętności</div>
+                    </div>
+                    <div class="section-description">
+                        Twoje kompetencje techniczne i miękkie umiejętności.
+                    </div>
+                    <ul class="section-tips">
+                        <li>Umiejętności techniczne związane ze stanowiskiem</li>
+                        <li>Znajomość języków obcych z poziomem</li>
+                        <li>Programy komputerowe i narzędzia</li>
+                        <li>Miękkie umiejętności (komunikacja, praca w zespole)</li>
+                        <li>Certyfikaty i uprawnienia</li>
+                        <li>Hobby związane z pracą</li>
+                    </ul>
+                </div>
+
+                <div class="cv-section">
+                    <div class="section-header">
+                        <span class="section-icon">📋</span>
+                        <div class="section-title">Profil zawodowy</div>
+                    </div>
+                    <div class="section-description">
+                        Krótkie, ale treściwe podsumowanie Twojej kariery i celów.
+                    </div>
+                    <ul class="section-tips">
+                        <li>2-3 zdania o Twoim doświadczeniu</li>
+                        <li>Kluczowe umiejętności i osiągnięcia</li>
+                        <li>Cel zawodowy i aspiracje</li>
+                        <li>Wartość, jaką wnosisz do firmy</li>
+                        <li>Słowa kluczowe z oferty pracy</li>
+                        <li>Unikalny charakter Twojej kandydatury</li>
+                    </ul>
+                </div>
+
+                <div class="cv-section">
+                    <div class="section-header">
+                        <span class="section-icon">🏆</span>
+                        <div class="section-title">Osiągnięcia</div>
+                    </div>
+                    <div class="section-description">
+                        Konkretne sukcesy i nagrody, które wyróżniają Cię na rynku pracy.
+                    </div>
+                    <ul class="section-tips">
+                        <li>Nagrody i wyróżnienia zawodowe</li>
+                        <li>Projekty, które przyniosły firmie korzyści</li>
+                        <li>Zwiększenie sprzedaży, oszczędności kosztów</li>
+                        <li>Publikacje i wystąpienia konferencyjne</li>
+                        <li>Wolontariat i działalność społeczna</li>
+                        <li>Osiągnięcia sportowe lub artystyczne</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pro-tips">
+                <div class="tips-header">
+                    <span class="tips-icon">💡</span>
+                    Profesjonalne wskazówki
+                </div>
+                <ul class="tips-list">
+                    <li>Dostosuj CV do każdej oferty pracy - używaj słów kluczowych z ogłoszenia</li>
+                    <li>Maksymalnie 2 strony A4 - rekruterzy mają ograniczony czas</li>
+                    <li>Użyj czytelnej czcionki (Arial, Calibri) w rozmiarze 10-12pt</li>
+                    <li>Zachowaj konsekwentne formatowanie i marginesy</li>
+                    <li>Unikaj zdjęć, chyba że branża tego wymaga</li>
+                    <li>Sprawdź ortografię i gramatykę kilkukrotnie</li>
+                    <li>Zapisz w formacie PDF zachowującym formatowanie</li>
+                    <li>Nazwa pliku: "Imie_Nazwisko_CV.pdf"</li>
+                    <li>Uaktualnij regularnie - dodawaj nowe doświadczenia</li>
+                    <li>Przygotuj kilka wersji CV dla różnych stanowisk</li>
+                </ul>
+            </div>
+
+            <div class="creator-cta">
+                <h3 class="cta-title">🚀 Użyj naszego kreatora CV</h3>
+                <p class="cta-description">
+                    Nasz zaawansowany kreator CV prowadzi Cię krok po kroku przez proces tworzenia profesjonalnego dokumentu. 
+                    Wybierz spośród dziesiątek szablonów, dostosuj treść do swojej branży i pobierz gotowe CV w kilka minut!
+                </p>
+                <a href="kreator-cv-new.html" class="cta-button">Stwórz CV teraz</a>
+            </div>
+
+            <div class="answer-content">
+                <h3 style="color: #00ff00; margin-bottom: 15px;">📄 Darmowe aplikowanie na oferty</h3>
+                <p>Pamiętaj, że nawet bez wykupienia płatnego planu możesz aplikować na oferty pracy publikowane na naszej stronie, załączając swoje własne CV w formacie PDF lub DOC.</p>
+                
+                <h3 style="color: #00ff00; margin-top: 25px; margin-bottom: 15px;">🎯 Dopasowanie do stanowiska</h3>
+                <p>Kluczem do sukcesu jest dopasowanie CV do konkretnej oferty pracy. Analizuj wymagania pracodawcy i podkreślaj te umiejętności i doświadczenia, które są najbardziej istotne dla danego stanowiska.</p>
+            </div>
+
+            <a href="faq.html" class="back-button">Powrót do FAQ</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 eCVjob.pl. Wszelkie prawa zastrzeżone.</p>
+    </footer>    <script src="js/logo.js"></script>
+
+</body>
+</html>

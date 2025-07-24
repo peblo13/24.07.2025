@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baza CV - eCVjob.pl</title>
+    
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header and Navigation */
+        header {
+            margin-bottom: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 5px;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(0, 255, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Animacje pulsowania */
+        @keyframes pulse-number {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        @keyframes pulse-main-counter {
+            0%, 100% { transform: scale(1); color: #ff0000; }
+            50% { transform: scale(1.15); color: #ff3333; }
+        }
+
+        /* Main content */
+        main {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* Sekcja planów płatnych */
+        .plans-section {
+            margin: 40px 0;
+            padding: 40px 20px;
+            background: transparent;
+            border-radius: 12px;
+            border: none;
+        }
+        
+        .plans-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .plan-card {
+            background: rgba(0, 255, 0, 0.1) !important;
+            border: 2px solid #00ff00 !important;
+            border-radius: 15px !important;
+            padding: 30px !important;
+            text-align: center !important;
+            transition: all 0.3s ease !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+
+        .plan-card.advanced {
+            background: rgba(255, 215, 0, 0.1) !important;
+            border: 2px solid #FFD700 !important;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 15px 40px rgba(0, 255, 0, 0.3) !important;
+        }
+
+        .plan-card.advanced:hover {
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3) !important;
+        }
+
+        .plan-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff00;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .plan-card.advanced .plan-title {
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+        }
+
+        .plan-price .currency {
+            font-size: 1.2rem;
+            color: #00ff00;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            font-weight: bold;
+        }
+
+        .plan-card.advanced .plan-price .currency {
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            color: #fff;
+            font-size: 1rem;
+            position: relative;
+            padding-left: 25px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            font-weight: 500;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .plan-card.advanced .plan-features li::before {
+            color: #FFD700;
+        }
+
+        .plan-card.advanced .plan-features li {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .plan-card.advanced .plan-features li strong {
+            color: #FFD700;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .plan-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #00ff00, #33ff33);
+            color: #000;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plan-button:hover {
+            background: linear-gradient(45deg, #33ff33, #66ff66);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.4);
+        }
+
+        .plan-card.advanced .plan-button {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .plan-card.advanced .plan-button:hover {
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.6);
+        }
+
+        /* Stylowanie dla planu Basic - wszystkie napisy zielone */
+        .plan-card.basic .plan-features li {
+            color: #00ff00 !important;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+        }
+        
+        .plan-card.basic .plan-features li::before {
+            color: #00ff00 !important;
+        }
+        
+        .plan-card.basic .plan-features li strong {
+            color: #33ff33 !important;
+            font-weight: 900 !important;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+        }
+        
+        .plan-card.basic .plan-button {
+            background: linear-gradient(45deg, #00ff00, #33ff33) !important;
+            color: #000 !important;
+        }
+        
+        .plan-card.basic .plan-button:hover {
+            background: linear-gradient(45deg, #33ff33, #66ff66) !important;
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.4) !important;
+        }
+
+        /* Stylowanie dla planu Advanced - wszystkie napisy złote */
+        .plan-card.advanced .plan-features li {
+            color: #FFD700 !important;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+        }
+        
+        .plan-card.advanced .plan-features li::before {
+            color: #FFD700 !important;
+        }
+        
+        .plan-card.advanced .plan-features li strong {
+            color: #FFA500 !important;
+            font-weight: 900 !important;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+        }
+        
+        .plan-card.advanced .plan-button {
+            background: linear-gradient(45deg, #FFD700, #FFA500) !important;
+            color: #000 !important;
+        }
+        
+        .plan-card.advanced .plan-button:hover {
+            background: linear-gradient(45deg, #FFA500, #FFD700) !important;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4) !important;
+        }
+
+        /* Stopka */
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ff00;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+            color: #00ff00;
+        }
+
+        /* Locked content */
+        .locked-message {
+            background: rgba(255, 107, 107, 0.1);
+            border: 2px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .locked-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Media queries */
+        @media (max-width: 768px) {
+            .plans-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul li a {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Start</a></li>
+                    <li><a href="O_nas.html">O nas</a></li>
+                    <li><a href="kreator-cv-new.html">Kreator CV</a></li>
+                    <li><a href="index.html#premium-templates" style="color: #FFD700; font-weight: bold;">⭐ Premium CV</a></li>
+                    <li><a href="baza_cv.html" style="color: #00ff00; font-weight: bold;">Baza CV</a></li>
+                    <li><a href="index.html#oferty-pracy">Oferty Pracy</a></li>
+                    <li><a href="index.html#uslugi">Usługi</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="cv-tips.html">CV Tips</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="index.html#kontakt">Kontakt</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Sekcja nagłówkowa -->
+            <section style="text-align: center; padding: 2rem 0;">
+                <h1 style="font-size: 3rem; color: #00ff00; margin-bottom: 1rem; font-weight: bold; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);">
+                    🔍 Baza CV dla Pracodawców
+                </h1>
+                <p style="font-size: 1.2rem; color: #fff; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); font-weight: 500;">
+                    W naszej bazie jest już <span id="main-counter-number" style="font-size: 3rem; font-weight: 900; color: #ff0000; text-shadow: 2px 2px 8px rgba(255, 0, 0, 0.5); animation: pulse-main-counter 2s ease-in-out infinite; display: inline-block; margin: 0 0.5rem;">247</span> kandydatów!
+                    <br>Zaawansowane wyszukiwanie według lokalizacji, zawodu, doświadczenia i wielu innych kryteriów.
+                </p>
+            </section>
+
+            <!-- Wiadomość o konieczności płatności -->
+            <div id="locked-content" class="locked-message">
+                <div class="locked-icon">🔒</div>
+                <h2 style="color: #ff6b6b; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); font-weight: bold;">Dostęp tylko dla Pracodawców z Planem Business</h2>
+                <p style="color: #fff; margin-bottom: 2rem; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); font-weight: 500;">
+                    Aby uzyskać dostęp do naszej bazy CV z zaawansowanym wyszukiwaniem, wybierz odpowiedni plan Business.
+                </p>
+            </div>
+
+            <!-- Plany płatności -->
+            <section id="payment-plans" class="plans-section">
+                <h2 style="text-align: center; color: #00ff00; font-size: 2.5rem; margin-bottom: 2rem; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9); font-weight: bold;">
+                    💼 Plany Business dla Pracodawców
+                </h2>
+                
+                <div class="plans-comparison">
+                    <!-- Plan Business Podstawowy -->
+                    <div class="plan-card basic" style="background: rgba(0, 255, 0, 0.1) !important; border: 2px solid #00ff00 !important; border-radius: 15px !important; text-align: center !important;">
+                        <h3 class="plan-title" style="color: #00ff00 !important;">Business Podstawowy</h3>
+                        <div class="plan-price" style="color: #00ff00 !important;">99 <span class="currency" style="color: #33ff33 !important;">zł/miesiąc</span></div>
+                        <ul class="plan-features">
+                            <li>Dostęp do 100 CV miesięcznie</li>
+                            <li>Podstawowe wyszukiwanie i filtry</li>
+                            <li>Kontakt z kandydatami</li>
+                            <li>Eksport wyników do CSV</li>
+                            <li>Support email</li>
+                            <li><strong>5 ogłoszeń o pracę/miesiąc</strong></li>
+                            <li><strong>3 ogłoszenia usług/miesiąc</strong></li>
+                            <li>Podstawowe analityki</li>
+                            <li>Panel pracodawcy</li>
+                            <li>Zarządzanie aplikacjami</li>
+                        </ul>
+                        <a href="#" class="plan-button" onclick="selectPlan('basic', 99)">Wykup Plan Podstawowy</a>
+                    </div>
+
+                    <!-- Plan Business Zaawansowany -->
+                    <div class="plan-card advanced" style="background: rgba(255, 215, 0, 0.1) !important; border: 2px solid #FFD700 !important; border-radius: 15px !important; text-align: center !important;">
+                        <h3 class="plan-title" style="color: #FFD700 !important;">Business Zaawansowany</h3>
+                        <div class="plan-price" style="color: #FFD700 !important;">199 <span class="currency" style="color: #FFA500 !important;">zł/miesiąc</span></div>
+                        <ul class="plan-features">
+                            <li>Wszystko z Podstawowego</li>
+                            <li><strong>Nieograniczony dostęp do bazy CV</strong></li>
+                            <li>Wszystkie zaawansowane filtry</li>
+                            <li>Kontakt z kandydatami</li>
+                            <li>Eksport wyników do CSV/Excel</li>
+                            <li><strong>Powiadomienia email i SMS</strong></li>
+                            <li>Priorytetowy kontakt z kandydatami</li>
+                            <li>Szczegółowe analityki i raporty</li>
+                            <li><strong>Support 24/7</strong></li>
+                            <li><strong>Nieograniczone ogłoszenia o pracę</strong></li>
+                            <li><strong>Nieograniczone ogłoszenia usług</strong></li>
+                            <li>Panel administratora</li>
+                            <li>Zarządzanie zespołem</li>
+                            <li>Brandowane szablony</li>
+                            <li>API dostęp</li>
+                            <li>Dedicated support</li>
+                            <li>SSO integracja</li>
+                            <li>Zaawansowane raportowanie</li>
+                        </ul>
+                        <a href="#" class="plan-button" onclick="selectPlan('advanced', 199)">Wykup Plan Zaawansowany</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Stopka -->
+        <footer>
+            <p>&copy; 2025 eCVjob.pl - Baza CV dla Pracodawców. Wszelkie prawa zastrzeżone.</p>
+        </footer>
+    </div>
+
+    <script>
+        function selectPlan(planType, price) {
+            alert(`Wybrano plan: ${planType} za ${price} zł/miesiąc`);
+        }
+
+        // Inicjalizacja strony
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Strona załadowana - wszystkie style powinny działać');
+        });
+    </script>
+</body>
+</html>

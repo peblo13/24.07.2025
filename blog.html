@@ -1,0 +1,990 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+        /* Basic reset and body styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Page header styling */
+        #page-header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 2px solid #00ff00;
+            width: 100%;
+        }
+
+        #page-header h1 {
+            color: #00ff00;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            position: relative;
+            z-index: 10;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        /* Header and Navigation */
+        header {
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 5px;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(0, 255, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul li a {
+                padding: 12px 15px;
+            }
+        }
+            padding: 0;
+            background: none;
+            box-shadow: none;
+            transition: max-height 0.3s;
+        }
+        .menu-toggle-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar-main li, .navbar-extra li {
+            margin: 0 8px;
+        }
+        .menu-toggle {
+            display: none;
+            position: static;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1001;
+            margin: 0 auto;
+            outline: none;
+        }
+        .menu-toggle span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+            gap: 12px;
+            background: none;
+        }
+        .menu-toggle-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #ff0033;
+            display: inline-block;
+            border: 2px solid #fff;
+            box-shadow: 0 0 8px 2px #ff0033, 0 2px 8px rgba(0,0,0,0.18);
+            opacity: 1;
+            z-index: 1004;
+            margin: 0 4px;
+        }
+        .menu-toggle-label {
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #ff0033;
+            font-weight: bold;
+            margin-top: 2px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 6px #ff0033, 0 0 2px #fff;
+            background: none !important;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            align-self: center;
+            min-width: 60px;
+            flex: 0 0 auto;
+        }
+        .menu-toggle-label:active {
+            color: #ff6600;
+            transform: scale(1.1);
+        }
+        .menu-toggle-label.animate {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); color: #ff0033; }
+            50% { transform: scale(1.15); color: #ff6600; }
+            100% { transform: scale(1); color: #ff0033; }
+        }
+        @media (max-width: 900px) {
+            .menu-toggle-wrapper {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 12px !important;
+            }
+            .menu-toggle, .menu-toggle-label {
+                display: block !important;
+            }
+            .navbar-main {
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px 0;
+            }
+            .navbar-main li {
+                margin: 4px 2px;
+                flex: 1 1 80px;
+                min-width: 60px;
+                max-width: 120px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 38px;
+            }
+            .navbar-main li a {
+                font-size: 0.8rem;
+                padding: 8px 4px;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                background: rgba(34,34,34,0.95);
+                border-radius: 6px;
+                transition: background 0.2s, color 0.2s, font-size 0.2s, padding 0.2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                line-height: 1.2;
+            }
+            .navbar-main li a:hover {
+                background: #00ff00;
+                color: #222;
+                box-shadow: 0 2px 12px rgba(0,255,0,0.15);
+            }
+            .navbar-extra {
+                position: static;
+                width: 100vw;
+                background: none;
+                box-shadow: none;
+                z-index: 2002;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                padding: 8px 0 0 0;
+                margin: 0 auto 0 auto;
+                display: none !important;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
+                gap: 8px 0;
+            }
+            .navbar-extra.showing {
+                display: flex !important;
+                opacity: 1;
+                pointer-events: auto;
+                transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
+            }
+            .navbar-extra li {
+                margin: 4px 2px;
+                flex: 1 1 80px;
+                min-width: 60px;
+                max-width: 120px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 38px;
+            }
+            .navbar-extra li a {
+                font-size: 0.8rem;
+                padding: 8px 4px;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                background: rgba(34,34,34,0.95);
+                border-radius: 6px;
+                transition: background 0.2s, color 0.2s, font-size 0.2s, padding 0.2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                line-height: 1.2;
+            }
+            .navbar-extra li a:hover {
+                background: #00ff00;
+                color: #222;
+                box-shadow: 0 2px 12px rgba(0,255,0,0.15);
+            }
+            main {
+                margin-top: 0 !important;
+                transition: margin-top 0.3s cubic-bezier(.4,0,.2,1);
+            }
+            .navbar-extra.showing ~ main {
+                margin-top: 60px !important;
+            }
+        }
+        @media (max-width: 600px) {
+            .navbar-main li {
+                flex: 1 1 40px;
+                min-width: 30px;
+                max-width: 60px;
+                margin: 2px 1px;
+                height: 28px;
+            }
+            .navbar-main li a {
+                font-size: 0.6rem;
+                padding: 6px 2px;
+                height: 100%;
+                line-height: 1.1;
+            }
+            .navbar-extra li {
+                flex: 1 1 40px;
+                min-width: 30px;
+                max-width: 60px;
+                margin: 2px 1px;
+                height: 28px;
+            }
+            .navbar-extra li a {
+                font-size: 0.6rem;
+                padding: 6px 2px;
+                height: 100%;
+                line-height: 1.1;
+            }
+            .menu-toggle-wrapper {
+                margin-top: 1px;
+                margin-bottom: 1px;
+            }
+            .navbar {
+                margin-bottom: 4px;
+            }
+            .navbar-extra.showing {
+                margin-bottom: 24px;
+            }
+            .navbar-extra.showing ~ main {
+                margin-top: 80px !important;
+            }
+        }
+        
+        /* Navigation styling */
+        .navbar-main li a, .navbar-extra li a {
+            color: #fff;
+            padding: 14px 18px !important;
+            text-decoration: none;
+            display: block;
+            border-radius: 5px;
+            transition: background 0.2s, color 0.2s;
+            background: rgba(34,34,34,0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            min-height: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.3 !important;
+            word-spacing: -1px;
+        }
+        
+        .navbar-main li a:hover, .navbar-extra li a:hover {
+            background: #00ff00;
+            color: #222;
+            box-shadow: 0 2px 12px rgba(0,255,0,0.15);
+        }
+
+        /* Logo styling - fixed position po prawej stronie */
+        .logo {
+            position: fixed;
+            right: 20px;
+            top: 80px;
+            width: 150px;
+            height: 150px;
+            z-index: 9999;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 2px 8px rgba(0, 255, 0, 0.3));
+        }
+
+        /* Main content styling */
+        main {
+            width: 80%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        /* Blog section */
+        #blog {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        #blog h2 {
+            color: #00ff00;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        /* Blog intro */
+        .blog-intro {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .blog-intro p {
+            color: #fff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Blog posts grid */
+        .blog-posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .blog-post {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.2);
+        }
+
+        .blog-post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #00ff00;
+        }
+
+        .blog-post-date {
+            background: rgba(0, 255, 0, 0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .blog-post-category {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px 10px;
+            border-radius: 15px;
+            border: 1px solid #00ff00;
+        }
+
+        .blog-post h3 {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .blog-post p {
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .blog-tag {
+            background: rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .read-more {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #00cc00;
+        }
+
+        .read-more::after {
+            content: " →";
+            margin-left: 5px;
+        }
+
+        /* Categories section */
+        .categories-section {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .categories-section h3 {
+            color: #00ff00;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .category-item {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-item:hover {
+            background: rgba(0, 255, 0, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .category-item .category-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .category-item h4 {
+            color: #00ff00;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .category-item .post-count {
+            color: #fff;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Newsletter section */
+        .newsletter-section {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .newsletter-section h3 {
+            color: #00ff00;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-section p {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 15px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .newsletter-form button {
+            background: #00ff00;
+            color: #222;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: #00cc00;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ff00;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+            color: #00ff00;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            main {
+                width: 95%;
+                padding: 1rem;
+            }
+
+            #blog {
+                padding: 2rem 1rem;
+            }
+
+            #blog h2 {
+                font-size: 2rem;
+            }
+
+            .blog-posts-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .blog-post {
+                padding: 20px;
+            }
+
+            .blog-post h3 {
+                font-size: 1.3rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .newsletter-form input {
+                min-width: auto;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            #page-header h1 {
+                font-size: 2rem;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+                top: 60px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #blog {
+                padding: 1.5rem 1rem;
+            }
+
+            #blog h2 {
+                font-size: 1.8rem;
+            }
+
+            .blog-post {
+                padding: 15px;
+            }
+
+            .blog-post h3 {
+                font-size: 1.2rem;
+            }
+
+            .blog-post-meta {
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-section {
+                padding: 20px;
+            }
+
+            .newsletter-section h3 {
+                font-size: 1.6rem;
+            }
+
+            #page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+                top: 40px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page header -->
+    <div id="page-header">
+        <h1>Blog - Porady Zawodowe i Karierowe</h1>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Start</a></li>
+                <li><a href="O_nas.html">O nas</a></li>
+                <li><a href="kreator-cv-new.html">Kreator CV</a></li>
+                <li><a href="baza_cv.html">Baza CV</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="index.html#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Logo - fixed position po prawej stronie -->
+    <div class="logo">
+        <img src="images/logo.png" alt="Logo eCVjob.pl">
+    </div>
+
+    <!-- Main content -->
+    <main>
+        <section id="blog">
+            <h2>Blog - Twoja Kariera w Centrum Uwagi</h2>
+            
+            <div class="blog-intro">
+                <p>Witaj w naszym blogu! Znajdziesz tutaj praktyczne porady, najnowsze trendy na rynku pracy, wskazówki dotyczące tworzenia CV, przygotowywania się do rozmów kwalifikacyjnych oraz rozwijania kariery zawodowej.</p>
+            </div>
+
+            <div class="blog-posts-grid">
+                <article class="blog-post">
+                    <div class="blog-post-meta">
+                        <span class="blog-post-date">22 stycznia 2025</span>
+                        <span class="blog-post-category">CV & LinkedIn</span>
+                    </div>
+                    <h3>5 najczęstszych błędów w CV, które odrzucają rekruterzy</h3>
+                    <p>Dowiedz się, jakich błędów unikać przy tworzeniu CV, aby zwiększyć swoje szanse na otrzymanie zaproszenia na rozmowę kwalifikacyjną. Analiza najczęstszych pomyłek kandydatów.</p>
+                    <div class="blog-post-tags">
+                        <span class="blog-tag">CV</span>
+                        <span class="blog-tag">Rekrutacja</span>
+                        <span class="blog-tag">Porady</span>
+                    </div>
+                    <a href="#" class="read-more">Czytaj więcej</a>
+                </article>
+
+                <article class="blog-post">
+                    <div class="blog-post-meta">
+                        <span class="blog-post-date">20 stycznia 2025</span>
+                        <span class="blog-post-category">Rozmowa kwalifikacyjna</span>
+                    </div>
+                    <h3>Jak przygotować się do rozmowy kwalifikacyjnej online</h3>
+                    <p>Praktyczny przewodnik po rozmowach kwalifikacyjnych przeprowadzanych online. Wskazówki techniczne, komunikacyjne i sposób na zrobienie dobrego pierwszego wrażenia.</p>
+                    <div class="blog-post-tags">
+                        <span class="blog-tag">Rozmowa</span>
+                        <span class="blog-tag">Online</span>
+                        <span class="blog-tag">Przygotowanie</span>
+                    </div>
+                    <a href="#" class="read-more">Czytaj więcej</a>
+                </article>
+
+                <article class="blog-post">
+                    <div class="blog-post-meta">
+                        <span class="blog-post-date">18 stycznia 2025</span>
+                        <span class="blog-post-category">Kariera</span>
+                    </div>
+                    <h3>Trendy na rynku pracy 2025 - czego oczekiwać</h3>
+                    <p>Przegląd najważniejszych trendów, które będą kształtować rynek pracy w 2025 roku. Praca zdalna, sztuczna inteligencja, nowe umiejętności i zmieniające się oczekiwania pracodawców.</p>
+                    <div class="blog-post-tags">
+                        <span class="blog-tag">Trendy</span>
+                        <span class="blog-tag">2025</span>
+                        <span class="blog-tag">Rynek pracy</span>
+                    </div>
+                    <a href="#" class="read-more">Czytaj więcej</a>
+                </article>
+
+                <article class="blog-post">
+                    <div class="blog-post-meta">
+                        <span class="blog-post-date">15 stycznia 2025</span>
+                        <span class="blog-post-category">Umiejętności</span>
+                    </div>
+                    <h3>Top 10 umiejętności poszukiwanych przez pracodawców</h3>
+                    <p>Lista najważniejszych kompetencji, które cenią sobie pracodawcy w 2025 roku. Umiejętności twarde, miękkie i te związane z nowymi technologiami.</p>
+                    <div class="blog-post-tags">
+                        <span class="blog-tag">Umiejętności</span>
+                        <span class="blog-tag">Kompetencje</span>
+                        <span class="blog-tag">Rozwój</span>
+                    </div>
+                    <a href="#" class="read-more">Czytaj więcej</a>
+                </article>
+
+                <article class="blog-post">
+                    <div class="blog-post-meta">
+                        <span class="blog-post-date">12 stycznia 2025</span>
+                        <span class="blog-post-category">Negocjacje</span>
+                    </div>
+                    <h3>Jak negocjować wynagrodzenie - praktyczne porady</h3>
+                    <p>Przewodnik po skutecznych negocjacjach wynagrodzenia. Kiedy, jak i o ile prosić o podwyżkę. Strategie, argumenty i częste błędy do uniknięcia.</p>
+                    <div class="blog-post-tags">
+                        <span class="blog-tag">Wynagrodzenie</span>
+                        <span class="blog-tag">Negocjacje</span>
+                        <span class="blog-tag">Podwyżka</span>
+                    </div>
+                    <a href="#" class="read-more">Czytaj więcej</a>
+                </article>
+
+                <article class="blog-post">
+                    <div class="blog-post-meta">
+                        <span class="blog-post-date">10 stycznia 2025</span>
+                        <span class="blog-post-category">LinkedIn</span>
+                    </div>
+                    <h3>Optymalizacja profilu LinkedIn - krok po kroku</h3>
+                    <p>Kompletny przewodnik po tworzeniu profesjonalnego profilu LinkedIn. Jak napisać skuteczne podsumowanie, dobierać zdjęcia i budować sieć kontaktów.</p>
+                    <div class="blog-post-tags">
+                        <span class="blog-tag">LinkedIn</span>
+                        <span class="blog-tag">Profil</span>
+                        <span class="blog-tag">Networking</span>
+                    </div>
+                    <a href="#" class="read-more">Czytaj więcej</a>
+                </article>
+            </div>
+
+            <div class="categories-section">
+                <h3>Kategorie</h3>
+                <div class="categories-grid">
+                    <div class="category-item">
+                        <span class="category-icon">📄</span>
+                        <h4>CV & LinkedIn</h4>
+                        <p class="post-count">8 artykułów</p>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-icon">💼</span>
+                        <h4>Rozmowy kwalifikacyjne</h4>
+                        <p class="post-count">6 artykułów</p>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-icon">🚀</span>
+                        <h4>Rozwój kariery</h4>
+                        <p class="post-count">12 artykułów</p>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-icon">📈</span>
+                        <h4>Trendy rynku pracy</h4>
+                        <p class="post-count">5 artykułów</p>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-icon">🛠️</span>
+                        <h4>Umiejętności</h4>
+                        <p class="post-count">9 artykułów</p>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-icon">💰</span>
+                        <h4>Wynagrodzenia</h4>
+                        <p class="post-count">4 artykułów</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="newsletter-section">
+                <h3>🔔 Newsletter</h3>
+                <p>Otrzymuj najnowsze artykuły, porady i informacje o rynku pracy bezpośrednio na swoją skrzynkę emailową!</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Twój adres email" required>
+                    <button type="submit">Zapisz się</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 eCVjob.pl. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        // Responsive menu toggle function
+        function toggleExtraMenu() {
+            const navbarExtra = document.querySelector('.navbar-extra');
+            if (navbarExtra) {
+                navbarExtra.classList.toggle('showing');
+            }
+        }
+
+        // Animation for blog posts on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply animation to blog posts and categories
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.blog-post, .category-item');
+            animatedElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(element);
+            });
+        });
+
+        // Newsletter form handling
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if (email) {
+                alert('Dziękujemy za zapisanie się do newslettera!');
+                this.querySelector('input[type="email"]').value = '';
+            }
+        });
+
+        // Hover effects for blog posts
+        document.querySelectorAll('.blog-post').forEach(post => {
+            post.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            post.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-5px) scale(1)';
+            });
+        });
+
+        // Console log for debugging
+        console.log('Blog page loaded successfully');
+    </script>    <script src="js/logo.js"></script>
+
+</body>
+</html>
+

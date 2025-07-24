@@ -1,0 +1,1057 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz CV - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .progress-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            width: 20%;
+        }
+
+        .back-button {
+            background: none;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+        }
+
+        /* Form section */
+        .form-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .add-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .add-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .remove-button {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .remove-button:hover {
+            background: #ff3742;
+        }
+
+        .experience-item,
+        .education-item,
+        .skill-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #667eea;
+            position: relative;
+        }
+
+        /* Preview section */
+        .preview-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 120px;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+        }
+
+        .preview-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .cv-preview {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+            min-height: 600px;
+            border: 1px solid #e1e5e9;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .cv-header {
+            text-align: center;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cv-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-contact {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .cv-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .cv-section-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cv-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        .cv-item:last-child {
+            border-bottom: none;
+        }
+
+        .cv-item-title {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .cv-item-subtitle {
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .cv-item-date {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* Navigation buttons */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e1e5e9;
+        }
+
+        .nav-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .nav-button.secondary {
+            background: none;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .nav-button.secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Download section */
+        .download-section {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .download-button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .preview-section {
+                position: static;
+                max-height: none;
+                order: -1;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .progress-bar {
+                display: none;
+            }
+
+            .cv-preview {
+                font-size: 0.8rem;
+            }
+
+            .cv-name {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Form validation */
+        .form-group.error input,
+        .form-group.error textarea,
+        .form-group.error select {
+            border-color: #ff4757;
+            box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.1);
+        }
+
+        .error-message {
+            color: #ff4757;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">eCVjob.pl</a>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <!-- Mikrofon do wypełniania głosowego -->
+                <button id="mic-btn-cv-form" type="button" title="Wypełnij formularz głosowo" style="background: none; border: none; cursor: pointer;">
+                    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;">
+                        <circle cx="30" cy="30" r="30" fill="#ffffff" stroke="#667eea" stroke-width="2"/>
+                        <rect x="22" y="14" width="16" height="24" rx="8" fill="#667eea"/>
+                        <path d="M38 30c0 4.418-3.582 8-8 8s-8-3.582-8-8" stroke="#667eea" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M30 38v8M22 46h16" stroke="#667eea" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <span id="mic-status-cv" style="font-size: 0.9rem; color: #667eea; margin-right: 10px; display: none; font-weight: bold;">Słucham...</span>
+                <a href="kreator-cv-new.html" class="back-button">← Powrót</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Form section -->
+        <div class="form-section">
+            <form id="cvForm">
+                <!-- Personal Information -->
+                <div class="form-step active" id="step-personal">
+                    <h2 class="section-title">👤 Dane osobowe</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Imię *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                            <div class="error-message">To pole jest wymagane</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Nazwisko *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                            <div class="error-message">To pole jest wymagane</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                            <div class="error-message">Podaj poprawny adres email</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                            <div class="error-message">To pole jest wymagane</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Adres</label>
+                        <input type="text" id="address" name="address" placeholder="Miasto, Kod pocztowy">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="summary">Profil zawodowy</label>
+                        <textarea id="summary" name="summary" placeholder="Krótki opis twoich umiejętności i doświadczenia..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="form-step" id="step-experience">
+                    <h2 class="section-title">💼 Doświadczenie zawodowe</h2>
+                    
+                    <div id="experienceContainer">
+                        <div class="experience-item">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Stanowisko</label>
+                                    <input type="text" name="jobTitle[]" placeholder="np. Specjalista ds. marketingu">
+                                </div>
+                                <div class="form-group">
+                                    <label>Firma</label>
+                                    <input type="text" name="company[]" placeholder="Nazwa firmy">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Data rozpoczęcia</label>
+                                    <input type="month" name="startDate[]">
+                                </div>
+                                <div class="form-group">
+                                    <label>Data zakończenia</label>
+                                    <input type="month" name="endDate[]">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Opis obowiązków</label>
+                                <textarea name="jobDescription[]" placeholder="Opisz swoje główne obowiązki i osiągnięcia..."></textarea>
+                            </div>
+                            <button type="button" class="remove-button" onclick="removeExperience(this)">Usuń</button>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="add-button" onclick="addExperience()">+ Dodaj doświadczenie</button>
+                </div>
+
+                <!-- Education -->
+                <div class="form-step" id="step-education">
+                    <h2 class="section-title">🎓 Wykształcenie</h2>
+                    
+                    <div id="educationContainer">
+                        <div class="education-item">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Kierunek studiów</label>
+                                    <input type="text" name="degree[]" placeholder="np. Informatyka">
+                                </div>
+                                <div class="form-group">
+                                    <label>Uczelnia</label>
+                                    <input type="text" name="school[]" placeholder="Nazwa uczelni">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Rok rozpoczęcia</label>
+                                    <input type="number" name="eduStartYear[]" min="1950" max="2030">
+                                </div>
+                                <div class="form-group">
+                                    <label>Rok ukończenia</label>
+                                    <input type="number" name="eduEndYear[]" min="1950" max="2030">
+                                </div>
+                            </div>
+                            <button type="button" class="remove-button" onclick="removeEducation(this)">Usuń</button>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="add-button" onclick="addEducation()">+ Dodaj wykształcenie</button>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-step" id="step-skills">
+                    <h2 class="section-title">⚡ Umiejętności</h2>
+                    
+                    <div id="skillsContainer">
+                        <div class="skill-item">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Umiejętność</label>
+                                    <input type="text" name="skill[]" placeholder="np. JavaScript">
+                                </div>
+                                <div class="form-group">
+                                    <label>Poziom</label>
+                                    <select name="skillLevel[]">
+                                        <option value="Początkujący">Początkujący</option>
+                                        <option value="Średniozaawansowany">Średniozaawansowany</option>
+                                        <option value="Zaawansowany">Zaawansowany</option>
+                                        <option value="Ekspert">Ekspert</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" class="remove-button" onclick="removeSkill(this)">Usuń</button>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="add-button" onclick="addSkill()">+ Dodaj umiejętność</button>
+                </div>
+
+                <!-- Navigation -->
+                <div class="form-navigation">
+                    <button type="button" class="nav-button secondary" id="prevButton" onclick="previousStep()" disabled>
+                        ← Poprzedni
+                    </button>
+                    <span id="stepIndicator">Krok 1 z 4</span>
+                    <button type="button" class="nav-button" id="nextButton" onclick="nextStep()">
+                        Następny →
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Preview section -->
+        <div class="preview-section">
+            <h3 class="preview-title">Podgląd CV</h3>
+            <div class="cv-preview" id="cvPreview">
+                <div class="cv-header">
+                    <div class="cv-name" id="previewName">Twoje Imię Nazwisko</div>
+                    <div class="cv-contact" id="previewContact">email@example.com | +48 123 456 789 | Miasto</div>
+                </div>
+
+                <div class="cv-section" id="previewSummary" style="display: none;">
+                    <div class="cv-section-title">Profil zawodowy</div>
+                    <div id="previewSummaryText"></div>
+                </div>
+
+                <div class="cv-section" id="previewExperience">
+                    <div class="cv-section-title">Doświadczenie zawodowe</div>
+                    <div id="previewExperienceItems">
+                        <div class="cv-item">
+                            <div class="cv-item-title">Dodaj swoje pierwsze doświadczenie zawodowe</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cv-section" id="previewEducation">
+                    <div class="cv-section-title">Wykształcenie</div>
+                    <div id="previewEducationItems">
+                        <div class="cv-item">
+                            <div class="cv-item-title">Dodaj swoje wykształcenie</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cv-section" id="previewSkills">
+                    <div class="cv-section-title">Umiejętności</div>
+                    <div id="previewSkillsItems">
+                        <div class="cv-item">
+                            <div class="cv-item-title">Dodaj swoje umiejętności</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="download-section" id="downloadSection" style="display: none;">
+                <h4>Twoje CV jest gotowe!</h4>
+                <p>Pobierz swoje CV w formacie PDF</p>
+                <button class="download-button" onclick="downloadCV()">
+                    📄 Pobierz CV (PDF)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        // Form validation
+        function validateStep(step) {
+            const currentStepElement = document.getElementById(`step-${getStepName(step)}`);
+            const requiredFields = currentStepElement.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                const formGroup = field.parentElement;
+                if (!field.value.trim()) {
+                    formGroup.classList.add('error');
+                    isValid = false;
+                } else {
+                    formGroup.classList.remove('error');
+                }
+            });
+
+            return isValid;
+        }
+
+        function getStepName(step) {
+            const steps = ['personal', 'experience', 'education', 'skills'];
+            return steps[step - 1];
+        }
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('stepIndicator').textContent = `Krok ${currentStep} z ${totalSteps}`;
+            
+            // Update navigation buttons
+            document.getElementById('prevButton').disabled = currentStep === 1;
+            document.getElementById('nextButton').textContent = currentStep === totalSteps ? 'Zakończ' : 'Następny →';
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(s => s.style.display = 'none');
+            
+            // Show current step
+            document.getElementById(`step-${getStepName(step)}`).style.display = 'block';
+            
+            updateProgress();
+        }
+
+        function nextStep() {
+            if (currentStep === totalSteps) {
+                finishCV();
+                return;
+            }
+
+            if (validateStep(currentStep)) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function finishCV() {
+            if (validateStep(currentStep)) {
+                document.getElementById('downloadSection').style.display = 'block';
+                document.getElementById('downloadSection').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Dynamic form management
+        function addExperience() {
+            const container = document.getElementById('experienceContainer');
+            const newItem = container.children[0].cloneNode(true);
+            
+            // Clear values
+            newItem.querySelectorAll('input, textarea').forEach(input => input.value = '');
+            
+            container.appendChild(newItem);
+            updatePreview();
+        }
+
+        function removeExperience(button) {
+            const container = document.getElementById('experienceContainer');
+            if (container.children.length > 1) {
+                button.parentElement.remove();
+                updatePreview();
+            }
+        }
+
+        function addEducation() {
+            const container = document.getElementById('educationContainer');
+            const newItem = container.children[0].cloneNode(true);
+            
+            // Clear values
+            newItem.querySelectorAll('input').forEach(input => input.value = '');
+            
+            container.appendChild(newItem);
+            updatePreview();
+        }
+
+        function removeEducation(button) {
+            const container = document.getElementById('educationContainer');
+            if (container.children.length > 1) {
+                button.parentElement.remove();
+                updatePreview();
+            }
+        }
+
+        function addSkill() {
+            const container = document.getElementById('skillsContainer');
+            const newItem = container.children[0].cloneNode(true);
+            
+            // Clear values
+            newItem.querySelectorAll('input, select').forEach(input => input.value = '');
+            
+            container.appendChild(newItem);
+            updatePreview();
+        }
+
+        function removeSkill(button) {
+            const container = document.getElementById('skillsContainer');
+            if (container.children.length > 1) {
+                button.parentElement.remove();
+                updatePreview();
+            }
+        }
+
+        // Preview update
+        function updatePreview() {
+            // Update name and contact
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+
+            document.getElementById('previewName').textContent = 
+                firstName && lastName ? `${firstName} ${lastName}` : 'Twoje Imię Nazwisko';
+            
+            const contactParts = [];
+            if (email) contactParts.push(email);
+            if (phone) contactParts.push(phone);
+            if (address) contactParts.push(address);
+            
+            document.getElementById('previewContact').textContent = 
+                contactParts.length ? contactParts.join(' | ') : 'email@example.com | +48 123 456 789 | Miasto';
+
+            // Update summary
+            const summary = document.getElementById('summary').value;
+            if (summary) {
+                document.getElementById('previewSummary').style.display = 'block';
+                document.getElementById('previewSummaryText').textContent = summary;
+            } else {
+                document.getElementById('previewSummary').style.display = 'none';
+            }
+
+            // Update experience
+            updateExperiencePreview();
+            updateEducationPreview();
+            updateSkillsPreview();
+        }
+
+        function updateExperiencePreview() {
+            const container = document.getElementById('previewExperienceItems');
+            const experiences = document.querySelectorAll('.experience-item');
+            
+            container.innerHTML = '';
+            
+            let hasExperience = false;
+            experiences.forEach(item => {
+                const title = item.querySelector('[name="jobTitle[]"]').value;
+                const company = item.querySelector('[name="company[]"]').value;
+                const startDate = item.querySelector('[name="startDate[]"]').value;
+                const endDate = item.querySelector('[name="endDate[]"]').value;
+                const description = item.querySelector('[name="jobDescription[]"]').value;
+                
+                if (title || company) {
+                    hasExperience = true;
+                    const div = document.createElement('div');
+                    div.className = 'cv-item';
+                    div.innerHTML = `
+                        <div class="cv-item-title">${title || 'Stanowisko'}</div>
+                        <div class="cv-item-subtitle">${company || 'Firma'}</div>
+                        <div class="cv-item-date">${formatDateRange(startDate, endDate)}</div>
+                        ${description ? `<div style="margin-top: 0.5rem;">${description}</div>` : ''}
+                    `;
+                    container.appendChild(div);
+                }
+            });
+            
+            if (!hasExperience) {
+                container.innerHTML = '<div class="cv-item"><div class="cv-item-title">Dodaj swoje pierwsze doświadczenie zawodowe</div></div>';
+            }
+        }
+
+        function updateEducationPreview() {
+            const container = document.getElementById('previewEducationItems');
+            const educations = document.querySelectorAll('.education-item');
+            
+            container.innerHTML = '';
+            
+            let hasEducation = false;
+            educations.forEach(item => {
+                const degree = item.querySelector('[name="degree[]"]').value;
+                const school = item.querySelector('[name="school[]"]').value;
+                const startYear = item.querySelector('[name="eduStartYear[]"]').value;
+                const endYear = item.querySelector('[name="eduEndYear[]"]').value;
+                
+                if (degree || school) {
+                    hasEducation = true;
+                    const div = document.createElement('div');
+                    div.className = 'cv-item';
+                    div.innerHTML = `
+                        <div class="cv-item-title">${degree || 'Kierunek studiów'}</div>
+                        <div class="cv-item-subtitle">${school || 'Uczelnia'}</div>
+                        <div class="cv-item-date">${formatYearRange(startYear, endYear)}</div>
+                    `;
+                    container.appendChild(div);
+                }
+            });
+            
+            if (!hasEducation) {
+                container.innerHTML = '<div class="cv-item"><div class="cv-item-title">Dodaj swoje wykształcenie</div></div>';
+            }
+        }
+
+        function updateSkillsPreview() {
+            const container = document.getElementById('previewSkillsItems');
+            const skills = document.querySelectorAll('.skill-item');
+            
+            container.innerHTML = '';
+            
+            let hasSkills = false;
+            skills.forEach(item => {
+                const skill = item.querySelector('[name="skill[]"]').value;
+                const level = item.querySelector('[name="skillLevel[]"]').value;
+                
+                if (skill) {
+                    hasSkills = true;
+                    const div = document.createElement('div');
+                    div.className = 'cv-item';
+                    div.innerHTML = `
+                        <div class="cv-item-title">${skill}</div>
+                        <div class="cv-item-subtitle">${level}</div>
+                    `;
+                    container.appendChild(div);
+                }
+            });
+            
+            if (!hasSkills) {
+                container.innerHTML = '<div class="cv-item"><div class="cv-item-title">Dodaj swoje umiejętności</div></div>';
+            }
+        }
+
+        function formatDateRange(start, end) {
+            const startDate = start ? new Date(start + '-01').toLocaleDateString('pl-PL', { month: 'long', year: 'numeric' }) : '';
+            const endDate = end ? new Date(end + '-01').toLocaleDateString('pl-PL', { month: 'long', year: 'numeric' }) : 'obecnie';
+            
+            if (startDate && endDate !== 'obecnie') {
+                return `${startDate} - ${endDate}`;
+            } else if (startDate) {
+                return `${startDate} - ${endDate}`;
+            }
+            return '';
+        }
+
+        function formatYearRange(start, end) {
+            if (start && end) {
+                return `${start} - ${end}`;
+            } else if (start) {
+                return `${start} - obecnie`;
+            }
+            return '';
+        }
+
+        function downloadCV() {
+            // In a real application, this would generate and download a PDF
+            alert('Funkcja pobierania PDF zostanie wkrótce dodana!\n\nTwoje CV zostało przygotowane i może być pobrane.');
+            console.log('CV data ready for PDF generation');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize form
+            showStep(currentStep);
+            
+            // Add event listeners for real-time preview updates
+            document.querySelectorAll('input, textarea, select').forEach(element => {
+                element.addEventListener('input', updatePreview);
+                element.addEventListener('change', updatePreview);
+            });
+            
+            // Initial preview update
+            updatePreview();
+            
+            console.log('CV Form initialized successfully');
+        });
+
+        // Get template from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const template = urlParams.get('template');
+        if (template) {
+            console.log(`Using template: ${template}`);
+            // Apply template-specific styling or structure
+        }
+
+        // Voice input functionality
+        let recognition;
+        let isListening = false;
+        let activeField = null;
+
+        function initSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window) {
+                recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'pl-PL';
+
+                recognition.onstart = function() {
+                    isListening = true;
+                    document.getElementById('mic-status-cv').style.display = 'inline';
+                    document.getElementById('mic-btn-cv-form').style.opacity = '0.7';
+                };
+
+                recognition.onresult = function(event) {
+                    const result = event.results[0][0].transcript;
+                    if (activeField) {
+                        if (activeField.tagName === 'TEXTAREA') {
+                            activeField.value += (activeField.value ? ' ' : '') + result;
+                        } else {
+                            activeField.value = result;
+                        }
+                        updatePreview();
+                    }
+                };
+
+                recognition.onend = function() {
+                    isListening = false;
+                    document.getElementById('mic-status-cv').style.display = 'none';
+                    document.getElementById('mic-btn-cv-form').style.opacity = '1';
+                };
+
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    isListening = false;
+                    document.getElementById('mic-status-cv').style.display = 'none';
+                    document.getElementById('mic-btn-cv-form').style.opacity = '1';
+                };
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize form
+            showStep(currentStep);
+            
+            // Initialize speech recognition
+            initSpeechRecognition();
+            
+            // Add mic button event listener
+            document.getElementById('mic-btn-cv-form').addEventListener('click', function() {
+                if (recognition && !isListening) {
+                    const focusedElement = document.activeElement;
+                    if (focusedElement && (focusedElement.tagName === 'INPUT' || focusedElement.tagName === 'TEXTAREA')) {
+                        activeField = focusedElement;
+                        recognition.start();
+                    } else {
+                        alert('Kliknij w pole, które chcesz wypełnić głosowo, a następnie kliknij ikonę mikrofonu.');
+                    }
+                }
+            });
+            
+            // Add event listeners for real-time preview updates
+            document.querySelectorAll('input, textarea, select').forEach(element => {
+                element.addEventListener('input', updatePreview);
+                element.addEventListener('change', updatePreview);
+            });
+            
+            // Initial preview update
+            updatePreview();
+            
+            console.log('CV Form initialized successfully');
+        });
+
+        < / s c r i p t > < s c r i p t   s r c = " j s / l o g o . j s " > < / s c r i p t > < / b o d y > < / h t m l > 
+ 
+ 

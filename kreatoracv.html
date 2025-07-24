@@ -1,0 +1,848 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kreator CV - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/logo.css">
+    
+    <!-- Link do głównego pliku CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        /* CV Creator specific styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            position: relative;
+            z-index: 10;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        header h1 {
+            color: #00ff00;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive navigation bar */
+        .navbar {
+            overflow: hidden;
+            position: relative;
+            z-index: 2000;
+            padding: 10px 0;
+            width: auto;
+            background: none;
+            box-shadow: none;
+            margin-bottom: 30px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar ul li {
+            margin: 15px 10px;
+            position: relative;
+        }
+
+        .navbar ul li a {
+            color: #00ff00;
+            text-decoration: none;
+            padding: 15px 30px;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            transition: background 0.3s, color 0.3s;
+            margin: 5px;
+            display: block;
+        }
+
+        .navbar ul li a:hover {
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+        }
+
+        .navbar-main, .navbar-extra {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+            transition: max-height 0.3s;
+        }
+
+        .menu-toggle-wrapper {
+            width: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 20px 0;
+            padding: 0;
+        }
+
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 0 10px;
+                margin-bottom: 20px;
+            }
+            
+            .menu-toggle-wrapper {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 12px !important;
+                margin-bottom: 20px !important;
+            }
+            
+            .menu-toggle, .menu-toggle-label {
+                display: block !important;
+            }
+            
+            .navbar-extra {
+                width: 100% !important;
+                flex-direction: column !important;
+                gap: 10px !important;
+                margin-top: 15px !important;
+                padding: 15px !important;
+                background: rgba(0,0,0,0.8) !important;
+                border-radius: 10px !important;
+                border: 1px solid #333 !important;
+            }
+            
+            .navbar-extra:not(.showing) {
+                display: none !important;
+            }
+            
+            .navbar-extra.showing {
+                display: flex !important;
+            }
+            
+            .navbar-main {
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+                margin-bottom: 10px !important;
+            }
+        }
+
+        @media (min-width: 901px) {
+            .menu-toggle-wrapper {
+                display: none !important;
+            }
+            
+            .navbar-extra {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 0 5px;
+                margin-bottom: 15px;
+            }
+            
+            .navbar-main {
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+            }
+            
+            .navbar-main li {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .navbar-main li a {
+                text-align: center;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .navbar-extra {
+                gap: 8px;
+                padding: 10px;
+            }
+            
+            .navbar-extra li {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .navbar-extra li a {
+                text-align: center;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        .navbar-main li, .navbar-extra li {
+            margin: 4px 8px;
+        }
+
+        .navbar-main li a, .navbar-extra li a {
+            color: #00ff00;
+            padding: 15px 30px;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+            transition: background 0.3s, color 0.3s;
+            background: rgba(34,34,34,0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            white-space: nowrap;
+            min-width: 120px;
+            text-align: center;
+            border: 2px solid #00ff00;
+            margin: 5px;
+            font-weight: 500;
+        }
+
+        .navbar-main li a:hover, .navbar-extra li a:hover {
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            box-shadow: 0 2px 12px rgba(0,255,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Special styles for long navigation texts */
+        @media (max-width: 1200px) {
+            .navbar-main li a, .navbar-extra li a {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+        }
+
+        /* Responsive adjustments for long texts */
+        @media (max-width: 900px) {
+            .navbar-main li a, .navbar-extra li a {
+                padding: 10px 15px;
+                font-size: 0.95rem;
+                min-width: auto;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar-main li a, .navbar-extra li a {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                margin: 2px 0;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            position: static;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1004;
+            margin: 0;
+            outline: none;
+        }
+
+        .menu-toggle span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+            gap: 12px;
+            background: none;
+        }
+
+        .menu-toggle-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #ff0033;
+            display: inline-block;
+            border: 2px solid #fff;
+            box-shadow: 0 0 8px 2px #ff0033, 0 2px 8px rgba(0,0,0,0.18);
+            opacity: 1;
+            z-index: 1004;
+            margin: 0 4px;
+        }
+
+        .menu-toggle-label {
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #ff0033;
+            font-weight: bold;
+            margin-top: 2px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 6px #ff0033, 0 0 2px #fff;
+            background: none !important;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            align-self: center;
+            min-width: 60px;
+            flex: 0 0 auto;
+        }
+
+        .menu-toggle-label:active {
+            color: #ff6600;
+            transform: scale(1.1);
+        }
+
+        .menu-toggle-label.animate {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); color: #ff0033; }
+            50% { transform: scale(1.15); color: #ff6600; }
+            100% { transform: scale(1); color: #ff0033; }
+        }
+
+        @media (max-width: 900px) {
+            .menu-toggle-wrapper {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 12px !important;
+            }
+            .menu-toggle {
+                display: block !important;
+                margin: 0 !important;
+            }
+            .menu-toggle-label {
+                display: block !important;
+                text-align: center !important;
+                align-self: center !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                margin-top: 2px !important;
+                margin-bottom: 12px !important;
+                flex: 0 0 auto !important;
+                background: none !important;
+                position: static !important;
+            }
+        }
+
+        /* Main content container */
+        .kreator-container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border: 2px solid #00ff00;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        @media (max-width: 900px) {
+            .kreator-container {
+                padding: 15px;
+                margin-top: 20px;
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .kreator-container {
+                padding: 10px;
+                margin-top: 15px;
+                width: 95%;
+            }
+        }
+
+        .kreator-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .kreator-header h2 {
+            color: #00ff00;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .kreator-header p {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Template grid layout */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .template-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-card:hover {
+            background: rgba(0, 255, 0, 0.1);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,255,0,0.2);
+        }
+
+        .template-preview {
+            width: 100%;
+            height: 180px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #00ff00;
+            position: relative;
+        }
+
+        .template-preview::before {
+            content: "📄";
+            font-size: 3rem;
+            opacity: 0.7;
+        }
+
+        .template-card h3 {
+            color: #00ff00;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .template-card p {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .template-card .btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .template-card .btn:hover {
+            background: rgba(0, 255, 0, 0.2);
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* Premium template styling */
+        .template-card.premium {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
+            border: 3px solid #ffd700;
+            position: relative;
+            animation: premiumGlow 2s ease-in-out infinite alternate;
+        }
+
+        .template-card.premium::before {
+            content: 'PREMIUM';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.5);
+        }
+
+        .template-card.premium:hover {
+            transform: scale(1.08);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(0, 255, 0, 0.1) 100%);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        .template-card.premium h3 {
+            color: #ffd700;
+        }
+
+        .template-card.premium .premium-btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border: 2px solid #ffd700;
+            font-weight: bold;
+        }
+
+        .template-card.premium .premium-btn:hover {
+            background: linear-gradient(45deg, #ffed4e, #fff);
+            color: #000;
+            border: 2px solid #ffd700;
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes premiumGlow {
+            0% {
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            }
+            100% {
+                box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .kreator-header h2 {
+                font-size: 2rem;
+            }
+
+            .kreator-header p {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+
+            .templates-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 10px;
+            }
+
+            .template-card {
+                padding: 15px;
+                margin: 0 auto;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .kreator-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .kreator-header p {
+                font-size: 0.9rem;
+            }
+
+            .template-card {
+                padding: 12px;
+            }
+
+            .template-preview {
+                height: 150px;
+            }
+
+            .template-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .template-card p {
+                font-size: 0.8rem;
+            }
+
+            .template-card .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Footer styling */
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ff00;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+            left: 0;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+            color: #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>eCVjob.pl - Kreator CV</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="menu-toggle-wrapper">
+            <button class="menu-toggle" id="menu-toggle-btn" aria-label="Menu">
+                <span>
+                    <span class="menu-toggle-dot"></span>
+                    <span class="menu-toggle-dot"></span>
+                    <span class="menu-toggle-dot"></span>
+                </span>
+            </button>
+            <button class="menu-toggle-label" id="menu-toggle-label-btn">Rozwiń</button>
+        </div>
+        
+        <ul class="navbar-main">
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="index.html#oferty-pracy">Oferty Pracy</a></li>
+            <li><a href="index.html#uslugi">Usługi</a></li>
+            <li><a href="kreatoracv.html">Kreator CV</a></li>
+        </ul>
+        
+        <ul class="navbar-extra">
+            <li><a href="bazacv.html">Baza CV</a></li>
+            <li><a href="O_nas.html">O nas</a></li>
+            <li><a href="index.html#kontakt">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main content -->
+    <div class="kreator-container">
+        <!-- Header -->
+        <div class="kreator-header">
+            <h2>Kreator CV</h2>
+            <p>Wybierz jeden z poniższych szablonów CV, aby rozpocząć</p>
+        </div>
+
+        <!-- CV Templates -->
+        <div class="templates-grid">
+            <div class="template-card">
+                <div class="template-preview"></div>
+                <h3>Szablon Klasyczny</h3>
+                <p>Elegancki, tradycyjny design idealny dla korporacji i firm konserwatywnych.</p>
+                <a href="#" class="btn" onclick="startCreator('classic')">Wybierz szablon</a>
+            </div>
+
+            <div class="template-card">
+                <div class="template-preview"></div>
+                <h3>Szablon Nowoczesny</h3>
+                <p>Kreatywny design z nowoczesnymi elementami dla branż kreatywnych.</p>
+                <a href="#" class="btn" onclick="startCreator('modern')">Wybierz szablon</a>
+            </div>
+
+            <div class="template-card">
+                <div class="template-preview"></div>
+                <h3>Szablon Minimalistyczny</h3>
+                <p>Prosty, czytelny design skupiający się na treści.</p>
+                <a href="#" class="btn" onclick="startCreator('minimal')">Wybierz szablon</a>
+            </div>
+
+            <div class="template-card">
+                <div class="template-preview"></div>
+                <h3>Szablon Techniczny</h3>
+                <p>Profesjonalny design dla branży IT i technicznej.</p>
+                <a href="#" class="btn" onclick="startCreator('tech')">Wybierz szablon</a>
+            </div>
+
+            <div class="template-card premium">
+                <div class="template-preview"></div>
+                <h3>Szablon Premium</h3>
+                <p>Ekskluzywny szablon z zaawansowanymi funkcjami i autorskim designem eCVjob.pl.</p>
+                <a href="kreator-formularz.html" class="btn premium-btn">Wybierz szablon</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 eCVjob.pl. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        // Obsługa responsywnego menu
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing navigation...');
+            
+            const menuToggleBtn = document.getElementById('menu-toggle-btn');
+            const menuToggleLabelBtn = document.getElementById('menu-toggle-label-btn');
+            const navbarExtra = document.querySelector('.navbar-extra');
+            const menuToggleWrapper = document.querySelector('.menu-toggle-wrapper');
+            
+            console.log('Menu elements found:', {
+                menuToggleBtn: !!menuToggleBtn,
+                menuToggleLabelBtn: !!menuToggleLabelBtn,
+                navbarExtra: !!navbarExtra,
+                menuToggleWrapper: !!menuToggleWrapper
+            });
+            
+            function updateNavbarVisibility() {
+                console.log('Updating navbar visibility, window width:', window.innerWidth);
+                
+                if (window.innerWidth <= 900) {
+                    console.log('Mobile view active');
+                    if (navbarExtra) {
+                        navbarExtra.classList.remove('showing');
+                        navbarExtra.style.display = 'none';
+                    }
+                    if (menuToggleLabelBtn) {
+                        menuToggleLabelBtn.textContent = 'Rozwiń';
+                    }
+                    if (menuToggleWrapper) {
+                        menuToggleWrapper.style.display = 'flex';
+                    }
+                } else {
+                    console.log('Desktop view active');
+                    if (navbarExtra) {
+                        navbarExtra.classList.add('showing');
+                        navbarExtra.style.display = 'flex';
+                    }
+                    if (menuToggleLabelBtn) {
+                        menuToggleLabelBtn.textContent = '';
+                    }
+                    if (menuToggleWrapper) {
+                        menuToggleWrapper.style.display = 'none';
+                    }
+                }
+            }
+            
+            updateNavbarVisibility();
+            window.addEventListener('resize', updateNavbarVisibility);
+            
+            function toggleNavbarExtra() {
+                console.log('Toggle menu called, window width:', window.innerWidth);
+                
+                if (window.innerWidth <= 900 && navbarExtra) {
+                    const isShowing = navbarExtra.classList.contains('showing');
+                    console.log('Current menu state:', isShowing ? 'showing' : 'hidden');
+                    
+                    if (isShowing) {
+                        navbarExtra.classList.remove('showing');
+                        navbarExtra.style.display = 'none';
+                        if (menuToggleLabelBtn) {
+                            menuToggleLabelBtn.textContent = 'Rozwiń';
+                        }
+                        console.log('Menu hidden');
+                    } else {
+                        navbarExtra.classList.add('showing');
+                        navbarExtra.style.display = 'flex';
+                        if (menuToggleLabelBtn) {
+                            menuToggleLabelBtn.textContent = 'Zwiń';
+                        }
+                        console.log('Menu shown');
+                    }
+                    
+                    // Wymuś właściwe pozycjonowanie napisu Rozwiń/Zwiń
+                    if (menuToggleLabelBtn) {
+                        menuToggleLabelBtn.style.textAlign = 'center';
+                        menuToggleLabelBtn.style.alignSelf = 'center';
+                        menuToggleLabelBtn.style.marginLeft = '0';
+                        menuToggleLabelBtn.style.marginRight = '0';
+                        menuToggleLabelBtn.style.marginTop = '2px';
+                        menuToggleLabelBtn.style.marginBottom = '12px';
+                        menuToggleLabelBtn.style.flex = '0 0 auto';
+                        menuToggleLabelBtn.style.background = 'none';
+                        menuToggleLabelBtn.style.position = 'static';
+                    }
+                }
+            }
+            
+            if (menuToggleBtn) {
+                menuToggleBtn.addEventListener('click', function(e) {
+                    console.log('Menu toggle button clicked');
+                    e.preventDefault();
+                    toggleNavbarExtra();
+                });
+            }
+            
+            if (menuToggleLabelBtn) {
+                menuToggleLabelBtn.addEventListener('click', function(e) {
+                    console.log('Menu toggle label clicked');
+                    e.preventDefault();
+                    toggleNavbarExtra();
+                });
+                menuToggleLabelBtn.classList.add('animate');
+            }
+
+            // Zamknij menu po kliknięciu w link (na mobile)
+            const navLinks = document.querySelectorAll('.navbar-extra a');
+            console.log('Found navigation links:', navLinks.length);
+            
+            navLinks.forEach((link, index) => {
+                link.addEventListener('click', function() {
+                    console.log('Navigation link clicked:', index);
+                    if (window.innerWidth <= 900 && navbarExtra && navbarExtra.classList.contains('showing')) {
+                        console.log('Closing menu after link click');
+                        toggleNavbarExtra();
+                    }
+                });
+            });
+            
+            console.log('Navigation initialization complete');
+        });
+
+        // Funkcja uruchomienia kreatora CV
+        function startCreator(templateType) {
+            // Przekierowanie do nowego kreatora CV
+            window.location.href = `kreator-formularz.html?template=${templateType}`;
+            console.log(`Starting CV creator with template: ${templateType}`);
+        }
+    </script>    <script src="js/logo.js"></script>
+
+</body>
+</html>
+

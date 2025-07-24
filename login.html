@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie/Rejestracja - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+        /* Dostosowanie do stylu styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .auth-container {
+            background: rgba(0, 0, 0, 0.6); /* Czarny półprzezroczysty 60% jak w styles.css */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border: 2px solid #00ff00; /* Zielona obwódka */
+            max-width: 800px;
+            width: 80%;
+            margin: 50px auto;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .auth-container h2 {
+            color: #00ff00; /* Jaskrawo zielony tekst */
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #00ff00;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff00;
+            font-size: 16px;
+            font-weight: bold;
+            color: #00ff00;
+            transition: all 0.3s ease;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .auth-tab.active {
+            background: rgba(0, 255, 0, 0.2);
+            color: #ffffff;
+            border-bottom: 3px solid #00ff00;
+        }
+        
+        .auth-tab:hover {
+            background: rgba(0, 255, 0, 0.1);
+            color: #ffffff;
+        }
+        
+        .auth-form {
+            display: none;
+            padding: 20px 0;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #00ff00; /* Jaskrawo zielony tekst */
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #00ff00; /* Zielona obwódka */
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.6); /* Czarny z przezroczystością 60% */
+            color: #00ff00; /* Jaskrawo zielony tekst */
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #ffffff;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7); /* Czarny z przezroczystością */
+            color: #00ff00; /* Zielona czcionka */
+            border: 1px solid #00ff00; /* Zielona ramka */
+            border-radius: 8px; /* Zaokrąglone rogi */
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: rgba(0, 255, 0, 0.2); /* Zielonkawe podświetlenie */
+            color: #ffffff; /* Biały tekst */
+            border: 1px solid #ffffff; /* Biała ramka */
+        }
+        
+        .mic-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .mic-btn {
+            background: #00ff00;
+            border: 1px solid #00ff00;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .mic-btn:hover {
+            background: rgba(0, 255, 0, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .mic-btn.recording {
+            background: #ff0000;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .mic-status {
+            display: none;
+            color: #000000;
+            background-color: rgba(255,255,255,0.9);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        
+        /* Sekcje, które mają być nad logo */
+        header, .auth-container {
+            position: relative;
+            z-index: 5;
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .forgot-password a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+            color: #ffffff;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            color: #00ff00;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* Pasek nawigacji */
+        nav {
+            overflow: hidden;
+            position: relative;
+            z-index: 2000;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav ul li {
+            margin: 15px 10px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #00ff00;
+            text-decoration: none;
+            padding: 15px 30px;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            transition: background 0.3s, color 0.3s;
+            margin: 5px;
+            display: block;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul li a {
+                padding: 12px 15px;
+            }
+        }
+
+        /* Footer styling */
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ff00;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Licznik ofert pracy na górze strony -->
+    <div id="job-count" style="width:100%;color:#00ff00;font-weight:bold;font-size:2.2rem;text-align:center;margin:20px 0 10px 0;">Liczba aktualnych ofert pracy: ...</div>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Start</a></li>
+                <li><a href="O_nas.html">O nas</a></li>
+                <li><a href="kreator-cv-new.html">Kreator CV</a></li>
+                <li><a href="baza_cv.html">Baza CV</a></li>
+                <li><a href="index.html#oferty-pracy">Oferty Pracy</a></li>
+                <li><a href="#" onclick="openJobForm(); return false;">Dodaj Ofertę Pracy</a></li>
+                <li><a href="index.html#uslugi">Usługi</a></li>
+                <li><a href="#" onclick="openServiceForm(); return false;">Dodaj Usługę</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cv-tips.html">CV Tips</a></li>
+                <li><a href="webresume.html">WebResume</a></li>
+                <li><a href="cv-europass.html">CV Europass</a></li>
+                <li><a href="login.html">Logowanie/Rejestracja</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="index.html#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Główna zawartość strony -->
+    <main>
+        <div class="auth-container">
+        <div class="auth-tabs">
+            <button class="auth-tab active" onclick="showForm('login'); this.classList.add('active'); this.nextElementSibling.classList.remove('active');">Logowanie</button>
+            <button class="auth-tab" onclick="showForm('register'); this.classList.add('active'); this.previousElementSibling.classList.remove('active');">Rejestracja</button>
+        </div>
+
+        <!-- Formularz logowania -->
+        <div id="login-form" class="auth-form active">
+            <h2>Zaloguj się do swojego konta</h2>
+            
+            <div class="mic-container">
+                <button id="mic-btn-login" type="button" class="mic-btn" aria-label="Wypełnij formularz logowania głosowo">
+                    <svg width="20" height="20" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="22" y="14" width="16" height="24" rx="8" fill="white"/>
+                        <rect x="28" y="40" width="4" height="4" fill="white"/>
+                        <rect x="18" y="46" width="24" height="4" fill="white"/>
+                    </svg>
+                </button>
+                <span id="mic-status-login" class="mic-status">Słucham...</span>
+                <span>Użyj mikrofonu do wypełnienia formularza</span>
+            </div>
+            
+            <form id="loginForm" action="#" method="POST">
+                <div class="form-group">
+                    <label for="login-username">Nazwa użytkownika lub email:</label>
+                    <input type="text" id="login-username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Hasło:</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">Zaloguj się</button>
+            </form>
+            
+            <div class="forgot-password">
+                <a href="#" onclick="alert('Funkcja przypomnienia hasła zostanie wkrótce dodana!')">Zapomniałeś hasła?</a>
+            </div>
+        </div>
+
+        <!-- Formularz rejestracji -->
+        <div id="register-form" class="auth-form">
+            <h2>Stwórz nowe konto</h2>
+            
+            <div class="mic-container">
+                <button id="mic-btn-register" type="button" class="mic-btn" aria-label="Wypełnij formularz rejestracji głosowo">
+                    <svg width="20" height="20" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="22" y="14" width="16" height="24" rx="8" fill="white"/>
+                        <rect x="28" y="40" width="4" height="4" fill="white"/>
+                        <rect x="18" y="46" width="24" height="4" fill="white"/>
+                    </svg>
+                </button>
+                <span id="mic-status-register" class="mic-status">Słucham...</span>
+                <span>Użyj mikrofonu do wypełnienia formularza</span>
+            </div>
+            
+            <form id="registerForm" action="#" method="POST">
+                <div class="form-group">
+                    <label for="register-username">Nazwa użytkownika:</label>
+                    <input type="text" id="register-username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-email">Adres email:</label>
+                    <input type="email" id="register-email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password">Hasło:</label>
+                    <input type="password" id="register-password" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password-confirm">Potwierdź hasło:</label>
+                    <input type="password" id="register-password-confirm" name="password_confirm" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">Zarejestruj się</button>
+            </form>
+        </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 eCVjob.pl. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script src="js/logo.js"></script>
+    <script>
+        // Licznik ofert pracy
+        document.addEventListener('DOMContentLoaded', function() {
+            // Symulowany licznik ofert pracy
+            const jobCount = Math.floor(Math.random() * 500) + 200; // Losowa liczba między 200-700
+            document.getElementById('job-count').textContent = `Liczba aktualnych ofert pracy: ${jobCount}`;
+        });
+
+        // Funkcje otwierania formularzy (przekierowania do głównej strony)
+        function openJobForm() {
+            window.location.href = 'index.html#add-job-offer';
+        }
+
+        function openServiceForm() {
+            window.location.href = 'index.html#add-service';
+        }
+
+        // Przełączanie między formularzami
+        function showForm(formType) {
+            // Ukryj wszystkie formularze
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            // Usuń aktywną klasę z wszystkich zakładek
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Pokaż wybrany formularz
+            document.getElementById(formType + '-form').classList.add('active');
+            
+            // Dodaj aktywną klasę do odpowiedniej zakładki
+            const activeTab = document.querySelector(`.auth-tab:${formType === 'login' ? 'first-child' : 'last-child'}`);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+        }
+
+        // Sprawdź hash w URL przy ładowaniu strony
+        window.onload = function() {
+            const hash = window.location.hash.substring(1); // usuń # z początku
+            if (hash === 'register') {
+                showForm('register');
+            } else if (hash === 'login') {
+                showForm('login');
+            }
+            // Domyślnie pozostań na formularzu logowania
+        };
+
+        // Obsługa mikrofonów - podobnie jak w index.html
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            // Mikrofon dla logowania
+            let recognitionLogin;
+            let isListeningLogin = false;
+            let currentLoginField = null;
+            const micBtnLogin = document.getElementById('mic-btn-login');
+            const micStatusLogin = document.getElementById('mic-status-login');
+
+            if (micBtnLogin) {
+                recognitionLogin = new SpeechRecognition();
+                recognitionLogin.lang = 'pl-PL';
+                recognitionLogin.continuous = true;
+                recognitionLogin.interimResults = false;
+
+                function findNextEmptyLoginField() {
+                    const fields = ['login-username', 'login-password'];
+                    for (let fieldId of fields) {
+                        const field = document.getElementById(fieldId);
+                        if (field && !field.value.trim()) {
+                            return field;
+                        }
+                    }
+                    return null;
+                }
+
+                recognitionLogin.onresult = function(event) {
+                    const transcript = event.results[event.results.length - 1][0].transcript.trim();
+                    
+                    if (!currentLoginField) {
+                        currentLoginField = findNextEmptyLoginField();
+                    }
+                    
+                    if (currentLoginField) {
+                        currentLoginField.value = transcript;
+                        
+                        currentLoginField = findNextEmptyLoginField();
+                        
+                        if (!currentLoginField) {
+                            recognitionLogin.stop();
+                        }
+                    }
+                };
+
+                recognitionLogin.onstart = function() {
+                    isListeningLogin = true;
+                    micStatusLogin.style.display = 'inline';
+                    micStatusLogin.style.color = '#000000';
+                    micStatusLogin.textContent = 'Mów teraz...';
+                    micBtnLogin.classList.add('recording');
+                    currentLoginField = findNextEmptyLoginField();
+                    if (currentLoginField) {
+                        currentLoginField.focus();
+                    }
+                };
+
+                recognitionLogin.onend = function() {
+                    isListeningLogin = false;
+                    micStatusLogin.style.display = 'none';
+                    micBtnLogin.classList.remove('recording');
+                };
+
+                recognitionLogin.onerror = function(event) {
+                    console.error('Błąd rozpoznawania mowy:', event.error);
+                    isListeningLogin = false;
+                    micStatusLogin.style.display = 'none';
+                    micBtnLogin.classList.remove('recording');
+                };
+
+                micBtnLogin.addEventListener('click', function() {
+                    if (isListeningLogin) {
+                        recognitionLogin.stop();
+                    } else {
+                        recognitionLogin.start();
+                    }
+                });
+            }
+
+            // Mikrofon dla rejestracji
+            let recognitionRegister;
+            let isListeningRegister = false;
+            let currentRegisterField = null;
+            const micBtnRegister = document.getElementById('mic-btn-register');
+            const micStatusRegister = document.getElementById('mic-status-register');
+
+            if (micBtnRegister) {
+                recognitionRegister = new SpeechRecognition();
+                recognitionRegister.lang = 'pl-PL';
+                recognitionRegister.continuous = true;
+                recognitionRegister.interimResults = false;
+
+                function findNextEmptyRegisterField() {
+                    const fields = ['register-username', 'register-email', 'register-password', 'register-password-confirm'];
+                    for (let fieldId of fields) {
+                        const field = document.getElementById(fieldId);
+                        if (field && !field.value.trim()) {
+                            return field;
+                        }
+                    }
+                    return null;
+                }
+
+                recognitionRegister.onresult = function(event) {
+                    const transcript = event.results[event.results.length - 1][0].transcript.trim();
+                    
+                    if (!currentRegisterField) {
+                        currentRegisterField = findNextEmptyRegisterField();
+                    }
+                    
+                    if (currentRegisterField) {
+                        currentRegisterField.value = transcript;
+                        
+                        currentRegisterField = findNextEmptyRegisterField();
+                        
+                        if (!currentRegisterField) {
+                            recognitionRegister.stop();
+                        }
+                    }
+                };
+
+                recognitionRegister.onstart = function() {
+                    isListeningRegister = true;
+                    micStatusRegister.style.display = 'inline';
+                    micStatusRegister.style.color = '#000000';
+                    micStatusRegister.textContent = 'Mów teraz...';
+                    micBtnRegister.classList.add('recording');
+                    currentRegisterField = findNextEmptyRegisterField();
+                    if (currentRegisterField) {
+                        currentRegisterField.focus();
+                    }
+                };
+
+                recognitionRegister.onend = function() {
+                    isListeningRegister = false;
+                    micStatusRegister.style.display = 'none';
+                    micBtnRegister.classList.remove('recording');
+                };
+
+                recognitionRegister.onerror = function(event) {
+                    console.error('Błąd rozpoznawania mowy:', event.error);
+                    isListeningRegister = false;
+                    micStatusRegister.style.display = 'none';
+                    micBtnRegister.classList.remove('recording');
+                };
+
+                micBtnRegister.addEventListener('click', function() {
+                    if (isListeningRegister) {
+                        recognitionRegister.stop();
+                    } else {
+                        recognitionRegister.start();
+                    }
+                });
+            }
+        } else {
+            console.log('Rozpoznawanie mowy nie jest obsługiwane w tej przeglądarce');
+        }
+
+        // Obsługa formularzy
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Funkcja logowania zostanie wkrótce dodana! Formularz zostanie przesłany do serwera.');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-password-confirm').value;
+            
+            if (password !== confirmPassword) {
+                alert('Hasła nie są identyczne!');
+                return;
+            }
+            
+            alert('Funkcja rejestracji zostanie wkrótce dodana! Formularz zostanie przesłany do serwera.');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O nas - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/O_nas.css">
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+        /* Header and Navigation - dokładnie jak na FAQ z nadpisaniem zewnętrznych stylów */
+        header {
+            margin-bottom: 20px !important;
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 10px 20px !important;
+            position: relative !important;
+            z-index: 10 !important;
+            background: none !important;
+            box-shadow: none !important;
+        }
+
+        nav {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            background: none !important;
+        }
+
+        nav ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex !important;
+            justify-content: center !important;
+            flex-wrap: wrap !important;
+            background-color: rgba(0, 0, 0, 0.8) !important;
+            border-radius: 5px !important;
+        }
+
+        nav ul li {
+            margin: 0 !important;
+        }
+
+        nav ul li a {
+            display: block !important;
+            padding: 15px 20px !important;
+            color: #00ff00 !important;
+            text-decoration: none !important;
+            font-weight: bold !important;
+            transition: background-color 0.3s ease !important;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(0, 255, 0, 0.2) !important;
+            border-radius: 5px !important;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column !important;
+                text-align: center !important;
+            }
+            
+            nav ul li a {
+                padding: 12px 15px !important;
+            }
+        }
+        .menu-toggle {
+            display: none;
+            position: static;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1001;
+            margin: 0 auto;
+            outline: none;
+        }
+        .menu-toggle span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+            gap: 12px;
+            background: none;
+        }
+        .menu-toggle-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #ff0033;
+            display: inline-block;
+            border: 2px solid #fff;
+            box-shadow: 0 0 8px 2px #ff0033, 0 2px 8px rgba(0,0,0,0.18);
+            opacity: 1;
+            z-index: 1004;
+            margin: 0 4px;
+        }
+        .menu-toggle-label {
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #ff0033;
+            font-weight: bold;
+            margin-top: 2px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 6px #ff0033, 0 0 2px #fff;
+            background: none !important;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            align-self: center;
+            min-width: 60px;
+            flex: 0 0 auto;
+        }
+        .menu-toggle-label:active {
+            color: #ff6600;
+            transform: scale(1.1);
+        }
+        .menu-toggle-label.animate {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); color: #ff0033; }
+            50% { transform: scale(1.15); color: #ff6600; }
+            100% { transform: scale(1); color: #ff0033; }
+        }
+        @media (max-width: 900px) {
+            .menu-toggle-wrapper {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 12px !important;
+            }
+            .menu-toggle, .menu-toggle-label {
+                display: block !important;
+            }
+            .navbar-main {
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px 0;
+            }
+            .navbar-main li {
+                margin: 4px 2px;
+                flex: 1 1 80px;
+                min-width: 60px;
+                max-width: 120px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 38px;
+            }
+            .navbar-main li a {
+                font-size: 0.8rem;
+                padding: 8px 4px;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                background: rgba(34,34,34,0.95);
+                border-radius: 6px;
+                transition: background 0.2s, color 0.2s, font-size 0.2s, padding 0.2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                line-height: 1.2;
+            }
+            .navbar-main li a:hover {
+                background: #00ff00;
+                color: #222;
+            }
+            .navbar-extra {
+                position: static;
+                width: 100vw;
+                background: none;
+                box-shadow: none;
+                z-index: 2002;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                padding: 8px 0 0 0;
+                margin: 0 auto 0 auto;
+                display: none !important;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
+                gap: 8px 0;
+            }
+            .navbar-extra.showing {
+                display: flex !important;
+                opacity: 1;
+                pointer-events: auto;
+                transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
+            }
+            .navbar-extra li {
+                margin: 4px 2px;
+                flex: 1 1 80px;
+                min-width: 60px;
+                max-width: 120px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 38px;
+            }
+            .navbar-extra li a {
+                font-size: 0.8rem;
+                padding: 8px 4px;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                background: rgba(34,34,34,0.95);
+                border-radius: 6px;
+                transition: background 0.2s, color 0.2s, font-size 0.2s, padding 0.2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                line-height: 1.2;
+            }
+            .navbar-extra li a:hover {
+                background: #00ff00;
+                color: #222;
+            }
+            main {
+                margin-top: 0 !important;
+                transition: margin-top 0.3s cubic-bezier(.4,0,.2,1);
+            }
+            .navbar-extra.showing ~ main {
+                margin-top: 60px !important;
+            }
+        }
+        @media (max-width: 600px) {
+            .navbar-main li {
+                flex: 1 1 40px;
+                min-width: 30px;
+                max-width: 60px;
+                margin: 2px 1px;
+                height: 28px;
+            }
+            .navbar-main li a {
+                font-size: 0.6rem;
+                padding: 6px 2px;
+                height: 100%;
+                line-height: 1.1;
+            }
+            .navbar-extra li {
+                flex: 1 1 40px;
+                min-width: 30px;
+                max-width: 60px;
+                margin: 2px 1px;
+                height: 28px;
+            }
+            .navbar-extra li a {
+                font-size: 0.6rem;
+                padding: 6px 2px;
+                height: 100%;
+                line-height: 1.1;
+            }
+            .menu-toggle-wrapper {
+                margin-top: 1px;
+                margin-bottom: 1px;
+            }
+            .navbar {
+                margin-bottom: 4px;
+            }
+            .navbar-extra.showing {
+                margin-bottom: 24px;
+            }
+            .navbar-extra.showing ~ main {
+                margin-top: 80px !important;
+            }
+        }
+        
+        /* Specjalne style dla długich tekstów w nawigacji */
+        .navbar-main li a, .navbar-extra li a {
+            color: #fff;
+            padding: 14px 18px !important;
+            text-decoration: none;
+            display: block;
+            border-radius: 5px;
+            transition: background 0.2s, color 0.2s;
+            background: rgba(34,34,34,0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            min-height: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.3 !important;
+            word-spacing: -1px;
+        }
+        
+        .navbar-main li a:hover, .navbar-extra li a:hover {
+            background: #00ff00;
+            color: #222;
+            box-shadow: 0 2px 12px rgba(0,255,0,0.15);
+        }
+
+        /* Responsywne dostosowania dla długich tekstów */
+        @media (max-width: 900px) {
+            .navbar-main li a, .navbar-extra li a {
+                padding: 10px 6px !important;
+                font-size: 0.75rem !important;
+                line-height: 1.1 !important;
+                white-space: normal !important;
+                word-wrap: break-word;
+                text-align: center !important;
+                min-height: 32px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar-main li a, .navbar-extra li a {
+                padding: 8px 3px !important;
+                font-size: 0.55rem !important;
+                line-height: 1.0 !important;
+                min-height: 24px;
+                white-space: normal !important;
+                word-wrap: break-word;
+                text-align: center !important;
+            }
+        }
+        
+        /* Styles dla sekcji O nas */
+        #o-nas {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: rgba(34, 34, 34, 0.4);
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+        
+        #o-nas h2 {
+            color: #00ff00;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        
+        #o-nas h3 {
+            color: #00ff00;
+            font-size: 1.8rem;
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 5px;
+        }
+        
+        .intro-section,
+        .mission-section,
+        .experience-section,
+        .team-section,
+        .contact-section {
+            background: rgba(51, 51, 51, 0.3);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+        }
+        
+        .intro-section:hover,
+        .mission-section:hover,
+        .experience-section:hover,
+        .team-section:hover,
+        .contact-section:hover {
+            background: rgba(68, 68, 68, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,255,0,0.2);
+            border: 1px solid rgba(0, 255, 0, 0.4);
+        }
+        
+        #o-nas p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        #o-nas ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        #o-nas ul li {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            color: #ddd;
+        }
+        
+        #o-nas ul li strong {
+            color: #00ff00;
+        }
+        
+        @media (max-width: 768px) {
+            #o-nas {
+                padding: 20px 15px;
+                margin: 0 10px 20px 10px;
+            }
+            
+            #o-nas h2 {
+                font-size: 2rem;
+            }
+            
+            #o-nas h3 {
+                font-size: 1.5rem;
+            }
+            
+            .intro-section,
+            .mission-section,
+            .experience-section,
+            .team-section,
+            .contact-section {
+                padding: 20px;
+                margin: 15px 0;
+            }
+            
+            #o-nas p {
+                font-size: 1rem;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Start</a></li>
+                <li><a href="O_nas.html">O nas</a></li>
+                <li><a href="kreator-cv-new.html">Kreator CV</a></li>
+                <li><a href="baza_cv.html">Baza CV</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cv-tips.html">CV Tips</a></li>
+                <li><a href="webresume.html">WebResume</a></li>
+                <li><a href="cv-europass.html">CV Europass</a></li>
+                <li><a href="login.html">Logowanie/Rejestracja</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="index.html#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Logo -->
+    <div class="logo">
+        <img src="images/logo.png" alt="Logo">
+    </div>
+    <main>
+        <section id="o-nas">
+            <h2>O nas</h2>
+            
+            <div class="intro-section">
+                <p>Jesteśmy firmą, która specjalizuje się w dostarczaniu najwyższej jakości usług rekrutacyjnych. Naszym celem jest łączenie pracodawców z najlepszymi kandydatami na rynku pracy. Dzięki naszemu doświadczeniu i zaangażowaniu, pomagamy firmom znaleźć idealnych pracowników, a kandydatom znaleźć wymarzoną pracę.</p>
+            </div>
+
+            <div class="mission-section">
+                <h3>Nasza Misja</h3>
+                <p><strong>eCVjob.pl</strong> to platforma, która powstała z myślą o uproszczeniu procesu rekrutacji i poszukiwania pracy. Wierzymy, że każdy zasługuje na możliwość znalezienia pracy, która będzie nie tylko źródłem dochodu, ale także spełnieniem zawodowym.</p>
+                
+                <p>Naszą misją jest tworzenie mostów między talentami a pracodawcami, oferując nowoczesne narzędzia i rozwiązania, które czynią proces rekrutacji bardziej efektywnym i przyjaznym dla wszystkich stron.</p>
+            </div>
+
+            <div class="experience-section">
+                <h3>Nasze Doświadczenie</h3>
+                <p>Nasza firma działa na rynku od wielu lat, zdobywając zaufanie zarówno pracodawców, jak i kandydatów. Oferujemy szeroki zakres usług, w tym:</p>
+                
+                <ul>
+                    <li><strong>Doradztwo personalne</strong> - indywidualne konsultacje kariery</li>
+                    <li><strong>Rekrutację specjalistyczną</strong> - na stanowiska specjalistyczne i menedżerskie</li>
+                    <li><strong>Szkolenia i rozwój zawodowy</strong> - programy doskonalenia umiejętności</li>
+                    <li><strong>Kreator CV</strong> - profesjonalne narzędzia do tworzenia aplikacji</li>
+                    <li><strong>Usługi freelancerskie</strong> - platforma dla niezależnych specjalistów</li>
+                </ul>
+            </div>
+
+            <div class="team-section">
+                <h3>Nasz Zespół</h3>
+                <p>Nasz zespół składa się z doświadczonych specjalistów, którzy z pasją podchodzą do swojej pracy i zawsze dążą do osiągnięcia najlepszych wyników. Współpracujemy z wieloma firmami z różnych branż, co pozwala nam na skuteczne dopasowanie kandydatów do specyficznych wymagań naszych klientów.</p>
+                
+                <p>Jesteśmy dumni z naszych osiągnięć i nieustannie dążymy do doskonalenia naszych usług, aby sprostać rosnącym oczekiwaniom rynku pracy.</p>
+            </div>
+
+            <div class="contact-section">
+                <h3>Skontaktuj się z nami</h3>
+                <p>Masz pytania? Chcesz dowiedzieć się więcej o naszych usługach? Jesteśmy tutaj, aby pomóc Ci osiągnąć Twoje cele zawodowe.</p>
+                
+                <p><a href="index.html#kontakt" style="color: #00ff00; text-decoration: none; font-weight: bold;">→ Przejdź do formularza kontaktowego</a></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 eCVjob.pl. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+    <script>
+    // Obsługa wysuwanego poziomego menu na małych ekranach
+    // Poprawiona obsługa menu-toggle jako przycisku
+    // Ukryj navbar-extra domyślnie na mobile, pokaż po kliknięciu
+    // Zmiana napisu Rozwiń na Zwiń po rozwinięciu menu
+    // Wyśrodkowanie napisu obok trzech kropek
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggleBtn = document.getElementById('menu-toggle-btn');
+    const menuToggleLabelBtn = document.getElementById('menu-toggle-label-btn');
+    const navbarExtra = document.querySelector('.navbar-extra');
+    function updateNavbarVisibility() {
+      if (window.innerWidth <= 900) {
+        navbarExtra.classList.remove('showing');
+        navbarExtra.style.display = 'none';
+        menuToggleLabelBtn.textContent = 'Rozwiń';
+        document.querySelector('.menu-toggle-wrapper').style.display = 'flex';
+      } else {
+        navbarExtra.classList.add('showing');
+        navbarExtra.style.display = 'flex';
+        menuToggleLabelBtn.textContent = '';
+        document.querySelector('.menu-toggle-wrapper').style.display = 'none';
+      }
+    }
+    updateNavbarVisibility();
+    window.addEventListener('resize', updateNavbarVisibility);
+    function toggleNavbarExtra() {
+      if (window.innerWidth <= 900) {
+        if (navbarExtra.classList.contains('showing')) {
+          navbarExtra.classList.remove('showing');
+          navbarExtra.style.display = 'none';
+          menuToggleLabelBtn.textContent = 'Rozwiń';
+        } else {
+          navbarExtra.classList.add('showing');
+          navbarExtra.style.display = 'flex';
+          menuToggleLabelBtn.textContent = 'Zwiń';
+        }
+        // Wymuś konsystentne wyśrodkowanie napisu Rozwiń/Zwiń
+        menuToggleLabelBtn.style.textAlign = 'center';
+        menuToggleLabelBtn.style.alignSelf = 'center';
+        menuToggleLabelBtn.style.justifySelf = 'center';
+        menuToggleLabelBtn.style.marginLeft = 'auto';
+        menuToggleLabelBtn.style.marginRight = 'auto';
+        menuToggleLabelBtn.style.marginTop = '2px';
+        menuToggleLabelBtn.style.marginBottom = '12px';
+        menuToggleLabelBtn.style.flex = '0 0 auto';
+        menuToggleLabelBtn.style.background = 'none';
+        menuToggleLabelBtn.style.position = 'static';
+        menuToggleLabelBtn.style.width = '60px';
+        menuToggleLabelBtn.style.minWidth = '60px';
+        menuToggleLabelBtn.style.maxWidth = '60px';
+        menuToggleLabelBtn.style.display = 'flex';
+        menuToggleLabelBtn.style.alignItems = 'center';
+        menuToggleLabelBtn.style.justifyContent = 'center';
+      }
+    }
+    if (menuToggleBtn && navbarExtra) {
+      menuToggleBtn.addEventListener('click', toggleNavbarExtra);
+    }
+    if (menuToggleLabelBtn && navbarExtra) {
+      menuToggleLabelBtn.addEventListener('click', toggleNavbarExtra);
+      menuToggleLabelBtn.classList.add('animate');
+    }
+  });
+    </script>
+    <script src="js/logo.js"></script>
+</body>
+</html>
