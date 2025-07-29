@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oferty Pracy</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      background: #181818;
+      color: #222;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .job-offer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      max-width: 900px;
+      margin: 40px auto 0 auto;
+    }
+    .job-offer-card-ue {
+      background: #fff;
+      border: 2px solid #ff2222;
+      border-radius: 14px;
+      padding: 22px 18px 18px 18px;
+      margin: 0 0 8px 0;
+      position: relative;
+      box-shadow: 0 2px 16px #ff222233;
+      transition: box-shadow 0.3s, background 0.3s;
+      overflow: visible;
+    }
+    .job-title-red-bold {
+      color: #ff2222 !important;
+      font-weight: bold;
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 8px #fff, 0 0 2px #fff;
+      animation: pulse-red-title 1.2s infinite alternate;
+    }
+    @keyframes pulse-red-title {
+      0% { color: #ff2222; text-shadow: 0 0 8px #fff, 0 0 2px #fff; }
+      100% { color: #ff0000; text-shadow: 0 0 24px #fff, 0 0 8px #fff; }
+    }
+    .apply-btn-red-ue {
+      background: linear-gradient(45deg, #ff0000, #ff3333);
+      color: #fff !important;
+      border: 2px solid #ff0000;
+      font-weight: bold;
+      border-radius: 8px;
+      font-size: 1.08rem;
+      padding: 10px 28px;
+      margin-top: 10px;
+      margin-bottom: 0;
+      cursor: pointer;
+      animation: pulse-btn-red-ue 1.2s infinite alternate;
+      box-shadow: 0 0 8px #ff0000;
+      transition: background 0.3s, color 0.3s;
+    }
+    @keyframes pulse-btn-red-ue {
+      0% { box-shadow: 0 0 8px #ff0000; background: linear-gradient(45deg, #ff0000, #ff3333); }
+      100% { box-shadow: 0 0 24px #ff3333; background: linear-gradient(45deg, #ff3333, #ff0000); }
+    }
+    .job-location-ue {
+      color: #222;
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 1.08rem;
+    }
+    .job-desc-ue {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 100%;
+      background: #fff;
+      color: #222;
+      border: 2px solid #ff2222;
+      border-radius: 0 0 14px 14px;
+      box-shadow: 0 8px 32px #ff222233;
+      padding: 18px 18px 18px 18px;
+      z-index: 10;
+      font-size: 1.08rem;
+      font-weight: normal;
+      transition: opacity 0.25s;
+    }
+    .job-offers-header {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 18px;
+    }
+    .job-offers-header h2 {
+      font-size: 2.2rem;
+      color: #00ff00;
+      font-weight: bold;
+      margin: 0;
+    }
+    .job-offers-counter {
+      display: inline-block;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #ff2222;
+      margin: 0;
+      padding: 0 22px;
+      border-radius: 18px;
+      box-shadow: 0 0 18px #ff2222;
+      background: rgba(255,0,0,0.13);
+      animation: pulseRed 1.1s infinite alternate;
+      vertical-align: middle;
+    }
+    @keyframes pulseRed {
+      0% { box-shadow: 0 0 18px #ff2222, 0 0 36px #ff2222; filter: brightness(1.1); }
+      100% { box-shadow: 0 0 36px #ff2222, 0 0 72px #ff2222; filter: brightness(1.35); }
+    }
+    @media (max-width: 900px) {
+      .job-offer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="job-offers-header">
+    <h2>Oferty Pracy</h2>
+    <span class="job-offers-counter">
+      <span id="job-offers-count">0</span>
+    </span>
+  </div>
+  <div id="job-listings"></div>
+  <script>
+    fetch('ue.json')
+      .then(res => {
+        if (!res.ok) throw new Error('Błąd pobierania pliku ue.json');
+        return res.json();
+      })
+      .then(data => {
+        const offers = Array.isArray(data) ? data.slice(0, 24) : [];
+        const grid = document.createElement('div');
+        grid.className = 'job-offer-grid';
+        offers.forEach(offer => {
+          const card = document.createElement('div');
+          card.className = 'job-offer-card-ue';
+          card.style.position = 'relative';
+          card.style.overflow = 'visible';
+
+          // Nazwa zawodu
+          const title = document.createElement('div');
+          title.className = 'job-title-red-bold';
+          title.textContent = offer.title || '';
+          card.appendChild(title);
+
+          // Lokalizacja
+          const loc = document.createElement('div');
+          loc.className = 'job-location-ue';
+          loc.textContent = offer.location || '';
+          card.appendChild(loc);
+
+          // Przycisk Aplikuj
+          const btn = document.createElement('button');
+          btn.className = 'apply-btn-red-ue';
+          btn.textContent = 'Aplikuj';
+          card.appendChild(btn);
+
+          // Ukryty opis
+          const desc = document.createElement('div');
+          desc.className = 'job-desc-ue';
+          desc.textContent = offer.description || '';
+          card.appendChild(desc);
+
+          card.addEventListener('mouseenter', () => {
+            desc.style.display = 'block';
+            desc.style.opacity = '1';
+          });
+          card.addEventListener('mouseleave', () => {
+            desc.style.display = 'none';
+            desc.style.opacity = '0';
+          });
+
+          grid.appendChild(card);
+        });
+        const listings = document.getElementById('job-listings');
+        if (listings) {
+          listings.innerHTML = '';
+          listings.appendChild(grid);
+        }
+        // Ustaw licznik ofert
+        const counter = document.getElementById('job-offers-count');
+        if (counter) counter.textContent = offers.length;
+      })
+      .catch(error => {
+        const listings = document.getElementById('job-listings');
+        if (listings) {
+          listings.innerHTML = '<div style="color:red;font-weight:bold;padding:20px;">Nie udało się pobrać ofert pracy: ' + error.message + '</div>';
+        }
+        const counter = document.getElementById('job-offers-count');
+        if (counter) counter.textContent = '0';
+      });
+  </script>
+</body>
+</html>

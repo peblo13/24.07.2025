@@ -462,6 +462,7 @@
     </style>
 </head>
 <body>
+    <div id="menu"></div>
     <!-- Page header -->
     <div id="page-header">
         <h1>FAQ - Najczęściej zadawane pytania</h1>
@@ -528,5 +529,13 @@
         console.log('FAQ page loaded successfully');
     </script>
     <script src="js/logo.js"></script>
+    <script>
+    // Dynamiczne ładowanie menu
+    fetch('menu.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('menu').innerHTML = html;
+      });
+    </script>
 </body>
 </html>

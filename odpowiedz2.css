@@ -1,0 +1,81 @@
+/*
+  Styl CSS do odpowiedzi na pytanie2 - minimalistyczny, bez menu, stopki i nagłówka "Dodawanie Ofert Pracy".
+  Skupia się na czytelności, nowoczesnym wyglądzie i responsywności.
+*/
+
+body {
+  background: #181818;
+  color: #f0f0f0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Główna sekcja odpowiedzi */
+.odpowiedz2-container {
+  background: rgba(30, 30, 30, 0.98);
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.25);
+  padding: 40px 28px;
+  max-width: 600px;
+  width: 95vw;
+  margin: 60px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.odpowiedz2-title {
+  display: none; /* Ukryj nagłówek "Dodawanie Ofert Pracy" */
+}
+
+/* Stylizacja pól formularza lub treści odpowiedzi */
+.odpowiedz2-content {
+  font-size: 1.18rem;
+  line-height: 1.7;
+  color: #e0ffe0;
+  background: rgba(0, 32, 0, 0.13);
+  border-radius: 10px;
+  padding: 22px 18px;
+  box-shadow: 0 2px 12px rgba(0,255,0,0.04);
+}
+
+/* Przycisk (jeśli występuje) */
+.odpowiedz2-btn {
+  background: linear-gradient(90deg, #00ff88 0%, #00cfff 100%);
+  color: #181818;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,255,128,0.13);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.odpowiedz2-btn:hover {
+  background: linear-gradient(90deg, #00cfff 0%, #00ff88 100%);
+  color: #000;
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* Ukryj menu/pasek zakładek i stopkę, jeśli są obecne */
+.menu, .navbar, .footer, footer, .main-menu, .tabs, .zakladki {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  .odpowiedz2-container {
+    padding: 18px 4vw;
+    margin-top: 24px;
+  }
+  .odpowiedz2-content {
+    font-size: 1.01rem;
+    padding: 14px 6px;
+  }
+}

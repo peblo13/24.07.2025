@@ -1,11 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontakt</title>
-    <link rel="stylesheet" href="css/logo.css">
-    <link rel="stylesheet" href="css/kontakt.css">
+
+    <!-- Dynamiczne menu -->
+    <div id="menu"></div>
 </head>
 <body>
     <div id="page-header">
@@ -52,9 +49,19 @@
         <p>&copy; 2025 eCVjob.pl</p>
     </footer>
 
+
     <div class="logo">
         <img src="images/logo.png" alt="Logo">
-    </div>    <script src="js/logo.js"></script>
+    </div>
+    <script src="js/logo.js"></script>
+    <script>
+    // Dynamiczne ładowanie menu
+    fetch('menu.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('menu').innerHTML = html;
+      });
+    </script>
 
 </body>
 </html>
